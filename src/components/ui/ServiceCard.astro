@@ -1,0 +1,78 @@
+---
+import { Image } from "astro:assets";
+import {
+  Building2,
+  PackageOpen,
+  PackageCheck,
+  MapPin,
+  Truck,
+} from "@lucide/astro";
+import type { ServiceItem } from "../../data/services";
+
+interface Props {
+  service: ServiceItem;
+  duplicate?: boolean;
+}
+
+const { service, duplicate = false } = Astro.props;
+const iconMap = {
+  building: Building2,
+  package: PackageOpen,
+  "map-pin": MapPin,
+  truck: Truck,
+  "package-check": PackageCheck,
+};
+const Icon = iconMap[service.icon];
+---
+
+<article
+  class="relative h-[500px] w-[85vw] shrink-0 snap-start overflow-hidden rounded-3xl bg-[#d8d8d5] sm:h-[520px] sm:w-[340px] md:w-[370px] xl:w-[380px]"
+  data-service-card
+  data-service-set={duplicate ? "duplicate" : "original"}
+  aria-hidden={duplicate ? "true" : undefined}
+>
+  <Image
+    src={service.image}
+    alt=""
+    data-service-image
+    class="h-full w-full object-cover"
+    loading="lazy"
+  />
+  <div
+    class="absolute inset-x-2 bottom-2 h-[218px] overflow-hidden rounded-2xl bg-[#103f40] p-8 sm:h-[220px]"
+    data-service-panel
+  >
+    <span
+      class="pointer-events-none absolute top-8 left-8 size-24 scale-0 rounded-full bg-[#f0c653]"
+      data-service-bubble
+      aria-hidden="true"
+    ></span>
+    <div class="relative z-1 flex h-full flex-col">
+      <div class="flex items-start justify-between gap-4">
+        <span class="text-[#f0c653]" data-service-icon>
+          <Icon size={44} strokeWidth={1.5} aria-hidden="true" />
+        </span>
+        <span
+          class="text-[54px] leading-none font-semibold tracking-[-0.06em] text-[#376264]"
+          data-service-number
+        >
+          {service.number}
+        </span>
+      </div>
+      <div class="mt-auto">
+        <h3
+          class="text-xl font-semibold tracking-tight text-white"
+          data-service-title
+        >
+          {service.title}
+        </h3>
+        <p
+          class="mt-2 text-sm leading-6 text-[#b9c8c7]"
+          data-service-description
+        >
+          {service.description}
+        </p>
+      </div>
+    </div>
+  </div>
+</article>

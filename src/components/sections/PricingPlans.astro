@@ -1,0 +1,149 @@
+---
+import { ArrowRight, Check } from "@lucide/astro";
+import { pricingPlans } from "../../data/pricing-plans";
+
+const customFeatures = [
+  "Residential Moving",
+  "Commercial Moving",
+  "Local Moving",
+  "Packing & Unpacking",
+];
+---
+
+<section
+  id="pricing"
+  class="bg-white py-20 md:py-24 lg:py-28"
+  aria-labelledby="pricing-heading"
+>
+  <div class="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2
+        id="pricing-heading"
+        class="mx-auto max-w-4xl text-center text-[clamp(2.35rem,4vw,3.75rem)] leading-[1.1] font-semibold tracking-tight text-[#203b3b]"
+      >
+        <span class="block">Select a Plan According to</span>
+        <span class="block">
+          Your <span class="text-[#f0c653]">Requirements</span>
+        </span>
+      </h2>
+
+      <div class="mt-12 grid gap-4 md:grid-cols-2 md:gap-5 lg:mt-14">
+        {pricingPlans.map((plan) => (
+          <article
+            class:list={[
+              "group flex min-w-0 flex-col overflow-hidden rounded-[22px] p-6 text-[#203b3b] transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lg sm:p-8 lg:p-9",
+              plan.featured ? "bg-[#e8c45c]" : "bg-[#f6f1ec]",
+            ]}
+            aria-labelledby={`plan-${plan.id}`}
+          >
+            <div class="flex min-h-[66px] flex-wrap items-start justify-between gap-3">
+              <div>
+                <h3 id={`plan-${plan.id}`} class="text-xl font-semibold">
+                  {plan.name}
+                </h3>
+                <p class="mt-1 text-sm text-[#687274]">{plan.subtitle}</p>
+              </div>
+              {plan.badge && (
+                <span class="shrink-0 rounded-full bg-[#203b3b] px-4 py-2 text-xs font-semibold text-white">
+                  {plan.badge}
+                </span>
+              )}
+            </div>
+
+            <p class="mt-5 flex items-end gap-1">
+              <span class="text-[clamp(2.7rem,4vw,3.5rem)] leading-none font-medium tracking-tight">
+                {plan.price}
+              </span>
+              <span class="pb-1 text-sm text-[#4f6262]">{plan.suffix}</span>
+            </p>
+
+            <ul class="mt-10 grid grid-cols-1 gap-x-5 gap-y-3 text-[13px] sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
+              {plan.features.map((feature) => (
+                <li
+                  class:list={[
+                    "flex min-w-0 items-start gap-2 leading-5 font-medium",
+                    !feature.available && "opacity-40",
+                  ]}
+                >
+                  <span
+                    class="mt-0.5 grid size-4 shrink-0 place-items-center rounded-full bg-white text-[#203b3b]"
+                    aria-hidden="true"
+                  >
+                    <Check size={11} strokeWidth={3} />
+                  </span>
+                  <span>{feature.label}</span>
+                  {!feature.available && (
+                    <span class="sr-only"> (not included)</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={plan.href}
+              aria-label={`${plan.ctaLabel}: ${plan.name}. Call ANP Movers`}
+              class:list={[
+                "group/cta mt-9 flex min-h-[48px] w-full items-center justify-between gap-3 rounded-full py-1 pr-1 pl-5 text-sm font-semibold uppercase transition-transform duration-300 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-[#203b3b] focus-visible:outline-offset-2",
+                plan.featured
+                  ? "bg-[#203b3b] text-white"
+                  : "bg-white text-[#203b3b]",
+              ]}
+            >
+              <span>{plan.ctaLabel}</span>
+              <span
+                class:list={[
+                  "grid size-10 shrink-0 place-items-center rounded-full",
+                  plan.featured
+                    ? "bg-white text-[#203b3b]"
+                    : "bg-[#203b3b] text-white",
+                ]}
+              >
+                <ArrowRight
+                  size={18}
+                  class="transition-transform duration-300 group-hover/cta:translate-x-0.5"
+                  aria-hidden="true"
+                />
+              </span>
+            </a>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-4 grid items-center gap-6 rounded-[18px] bg-[#203b3b] px-6 py-7 text-white sm:px-8 md:grid-cols-[1.3fr_1fr] lg:grid-cols-[1.35fr_1.4fr_auto] lg:gap-8">
+        <div>
+          <h3 class="text-xl font-semibold">Need a Custom Plan</h3>
+          <p class="mt-1 max-w-sm text-sm leading-6 text-white/70">
+            Tell us what you need for your move and we can discuss a plan that
+            fits.
+          </p>
+        </div>
+        <ul class="grid gap-x-5 gap-y-2 text-sm font-medium sm:grid-cols-2">
+          {customFeatures.map((feature) => (
+            <li class="flex items-start gap-2">
+              <span
+                class="mt-0.5 grid size-4 shrink-0 place-items-center rounded-full border border-white text-white"
+                aria-hidden="true"
+              >
+                <Check size={11} strokeWidth={3} />
+              </span>
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+        <a
+          href="tel:+94774166098"
+          class="group/contact flex min-h-[46px] w-fit items-center gap-3 rounded-full bg-[#f0c653] py-1 pr-1 pl-5 text-sm font-semibold text-[#203b3b] transition-transform duration-300 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 md:col-span-2 lg:col-span-1"
+        >
+          Contact Us
+          <span class="grid size-9 place-items-center rounded-full bg-white">
+            <ArrowRight
+              size={17}
+              class="transition-transform duration-300 group-hover/contact:translate-x-0.5"
+              aria-hidden="true"
+            />
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

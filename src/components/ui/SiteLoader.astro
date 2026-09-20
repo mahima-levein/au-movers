@@ -1,0 +1,34 @@
+---
+const brandLetters = [..."ANP MOVERS"];
+---
+
+<div
+  class="fixed inset-0 z-[200] grid place-items-center overflow-hidden bg-[#faf6f2] px-6"
+  data-site-loader
+  role="status"
+  aria-label="ANP Movers is loading"
+>
+  <div class="flex -translate-y-[3vh] flex-col items-center">
+    <img
+      src="/truck-animated.svg"
+      alt=""
+      class="w-[clamp(210px,32vw,390px)]"
+      data-loader-truck
+    />
+    <p
+      class="mt-[clamp(-105px,-8vw,-55px)] flex justify-center text-[clamp(1.15rem,2.2vw,1.8rem)] leading-none font-bold tracking-[0.18em] text-[#203b3b]"
+      aria-hidden="true"
+    >
+      {brandLetters.map((letter) => (
+        <span class="inline-block min-w-[0.35em]" data-loader-letter>
+          {letter === " " ? "\u00a0" : letter}
+        </span>
+      ))}
+    </p>
+  </div>
+</div>
+
+<script>
+  import { initSiteLoader } from "../../scripts/animations/site-loader";
+  initSiteLoader();
+</script>

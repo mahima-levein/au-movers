@@ -1,0 +1,71 @@
+---
+import { ArrowRight } from "@lucide/astro";
+// import { Image } from "astro:assets";
+import quoteImage from "../../assets/banner-image-1.jpg";
+import bgVideo from "../../assets/bg-video.mp4?url";
+---
+
+<section
+  id="request-quote"
+  class="px-[clamp(12px,1vw,18px)] py-5"
+  aria-labelledby="request-quote-heading"
+>
+  <div class="relative mx-auto min-h-[400px] overflow-hidden rounded-[32px] bg-[#284443]">
+    <!-- Previous static background image, kept for future use:
+    <Image
+      src={quoteImage}
+      alt="Smiling moving professional in a warehouse"
+      widths={[640, 960, 1440, 1920]}
+      sizes="100vw"
+      class="absolute inset-0 size-full object-cover object-[50%_top] md:object-center"
+      loading="lazy"
+    />
+    -->
+    <video
+      class="absolute inset-0 size-full object-cover object-center"
+      autoplay
+      loop
+      muted
+      playsinline
+      preload="metadata"
+      poster={quoteImage.src}
+      aria-hidden="true"
+    >
+      <source src={bgVideo} type="video/mp4" />
+    </video>
+    <div
+      class="pointer-events-none absolute inset-0 bg-black/10"
+      aria-hidden="true"
+    ></div>
+    <div class="relative z-10 flex min-h-[700px] items-end justify-center px-4 pt-44 pb-5 sm:px-6 sm:pt-56 sm:pb-8 lg:px-8 lg:pt-[310px] lg:pb-12">
+      <div
+        id="contact"
+        class="w-full max-w-[1180px] rounded-[30px] bg-[#faf6f2] px-5 py-9 text-center shadow-xl sm:px-8 sm:py-10 lg:px-16 lg:py-12"
+      >
+        <!-- <span class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-semibold tracking-[0.12em] text-[#203b3b]">
+          Get Your Free Moving Estimate
+        </span> -->
+        <h2
+          id="request-quote-heading"
+          class="mt-4 text-[clamp(2.25rem,4vw,3.75rem)] leading-[1.1] font-semibold tracking-tight text-[#203b3b]"
+        >
+          Request a Quote
+        </h2>
+        <p class="mx-auto mt-4 max-w-xl text-sm leading-6 text-[#687274] sm:text-base">
+          Tell us a few details about your move and prepare your estimate in six
+          quick steps.
+        </p>
+        <button
+          type="button"
+          data-open-quote
+          class="mt-7 inline-flex min-h-11 cursor-pointer items-center gap-[13px] rounded-full bg-[#f0c653] py-1 pr-[5px] pl-5 text-[13px] font-semibold text-[#263735] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#e6b83b] focus-visible:outline-2 focus-visible:outline-[#a07825] focus-visible:outline-offset-[3px]"
+        >
+          Get My Free Moving Quote
+          <span class="grid size-[34px] place-items-center rounded-full bg-[#fffdf8]">
+            <ArrowRight size={18} strokeWidth={1.7} aria-hidden="true" />
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

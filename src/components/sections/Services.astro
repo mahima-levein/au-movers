@@ -1,0 +1,63 @@
+---
+import ServiceCard from "../ui/ServiceCard.astro";
+import { services } from "../../data/services";
+---
+
+<section
+  id="services"
+  class="mx-[clamp(12px,1vw,18px)] overflow-hidden rounded-[32px] bg-[#1b1b1b] py-20 text-white md:py-24 lg:py-28"
+  aria-labelledby="services-heading"
+>
+  <div class="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+    <h2
+      id="services-heading"
+      class="mx-auto max-w-3xl text-center text-4xl leading-[1.08] font-semibold tracking-tight md:text-5xl xl:text-6xl"
+    >
+      Reliable Moving Services for
+      <br class="hidden sm:block" /> Homes{" "}
+      <span class="text-[#f0c653]">&amp; Businesses</span>
+    </h2>
+  </div>
+  <div class="mx-auto max-w-[1720px] px-5 sm:px-6 lg:px-8">
+    <div
+      class="mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 outline-offset-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden focus-visible:outline-2 focus-visible:outline-[#f0c653] md:mt-14"
+      data-services-slider
+      role="region"
+      aria-label="Moving services, scroll horizontally to see more"
+      tabindex="0"
+    >
+      {services.map((service) => (
+        <ServiceCard service={service} />
+      ))}
+      {services.map((service) => (
+        <ServiceCard service={service} duplicate />
+      ))}
+    </div>
+    <div
+      class="mt-4 flex items-center justify-center gap-2"
+      data-services-pagination
+      aria-label="Choose a moving service"
+    >
+      {services.map((service, index) => (
+        <button
+          type="button"
+          class:list={[
+            "h-2.5 cursor-pointer rounded-full transition-[width,background-color] duration-300 focus-visible:outline-2 focus-visible:outline-[#f0c653] focus-visible:outline-offset-4",
+            index === 0
+              ? "w-7 bg-[#f0c653]"
+              : "w-2.5 bg-white/35 hover:bg-white/65",
+          ]}
+          data-service-dot
+          data-service-index={index}
+          aria-label={`Show ${service.title}`}
+          aria-current={index === 0 ? "true" : undefined}
+        ></button>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initServices } from "../../scripts/animations/services";
+  initServices();
+</script>

@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+	--font-sans: "Jost", sans-serif;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+section[id] {
+	scroll-margin-top: 110px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+}

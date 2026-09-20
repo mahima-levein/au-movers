@@ -1,0 +1,90 @@
+---
+import { Phone } from "@lucide/astro";
+import SidePanel from "./SidePanel.astro";
+
+const links = [
+  { label: "Home", href: "#home-hero" },
+  { label: "About", href: "#who-we-are" },
+  { label: "Services", href: "#services" },
+  { label: "Flow", href: "#process-steps" },
+  { label: "FAQs", href: "#faq" },
+  { label: "Contact", href: "#request-quote" },
+];
+---
+
+<header
+  id="site-header"
+  class="fixed top-[clamp(16px,2.2vw,32px)] left-0 z-20 w-full px-[clamp(12px,1.7vw,24px)] py-[7px] text-[#15191a]"
+>
+  <div class="header-shell mx-auto flex min-h-[72px] max-w-7xl items-center justify-between gap-6 rounded-full border border-[#f0efeb] bg-[#fffefa] px-[clamp(15px,2vw,27px)] shadow-[0_8px_25px_rgb(28_31_30_/_4%)] max-[620px]:gap-2.5 max-[620px]:px-3.5">
+    <a
+      class="header-brand inline-flex items-center gap-3 whitespace-nowrap text-[17px] font-extrabold tracking-[-0.04em] text-[#111718] outline-offset-[3px] focus-visible:outline-2 focus-visible:outline-[#d4ad61] max-[620px]:gap-[7px] max-[620px]:text-[15px]"
+      href="/"
+      aria-label="ANP Movers home"
+    >
+      <span
+        class="flex size-[22px] -rotate-[30deg] items-center justify-center gap-0.5"
+        aria-hidden="true"
+      >
+        <span class="h-4 w-1 skew-y-[22deg] rounded-[5px] border-2 border-[#203333]"></span>
+        <span class="h-[21px] w-1 skew-y-[22deg] rounded-[5px] border-2 border-[#203333]"></span>
+        <span class="h-4 w-1 skew-y-[22deg] rounded-[5px] border-2 border-[#203333]"></span>
+      </span>
+      <span>ANP MOVERS</span>
+    </a>
+
+    <nav class="header-nav max-[1180px]:hidden" aria-label="Primary navigation">
+      <ul class="flex list-none items-center gap-[clamp(15px,2.2vw,34px)] p-0">
+        {links.map(({ label, href }) => (
+          <li>
+            <a
+              class="whitespace-nowrap text-sm uppercase transition-colors duration-200 hover:text-[#a07731] focus-visible:outline-2 focus-visible:outline-[#d4ad61] focus-visible:outline-offset-[3px]"
+              href={href}
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="header-actions flex items-center gap-2.5 max-[620px]:gap-[3px] relative">
+      <a
+        class="header-phone inline-flex min-h-[33px] items-center justify-center gap-2 whitespace-nowrap rounded-full border border-[#e7e8e5] px-3.5 text-sm font-semibold transition-colors duration-200 hover:border-[#dbc694] hover:bg-[#f3efe6] focus-visible:outline-2 focus-visible:outline-[#d4ad61] focus-visible:outline-offset-[3px] max-[620px]:size-[38px] max-[620px]:min-h-0 max-[620px]:p-0"
+        href="tel:+94774166098"
+        aria-label="Call ANP Movers on +94 77 416 6098"
+      >
+        <Phone
+          size={16}
+          strokeWidth={1.8}
+          class="text-[#2e4141]"
+          aria-hidden="true"
+        />
+        <span class="max-[620px]:hidden">(+2) 5550 5550</span>
+      </a>
+      <!-- <a
+        class="header-talk inline-flex min-h-[33px] items-center justify-center whitespace-nowrap rounded-full border border-[#e7e8e5] px-3.5 text-sm font-semibold transition-colors duration-200 hover:border-[#dbc694] hover:bg-[#f3efe6] focus-visible:outline-2 focus-visible:outline-[#d4ad61] focus-visible:outline-offset-[3px] max-[620px]:hidden"
+        href="#request-quote"
+      >
+        Let's Talk
+      </a> -->
+      <button
+        class="header-menu group grid size-[40px] cursor-pointer place-items-center rounded-full border-0 bg-transparent transition-colors duration-200 hover:bg-[#f1f0eb] focus-visible:outline-2 focus-visible:outline-[#d4ad61] focus-visible:outline-offset-[3px]"
+        type="button"
+        aria-label="Open navigation menu"
+        aria-controls="site-side-panel"
+        aria-expanded="false"
+      >
+        <span class="hamburger-box relative block h-5 w-8" aria-hidden="true">
+          <span class="hamburger-inner absolute top-1/2 left-1 h-0.5 w-4 -translate-y-1/2 rounded-full bg-[#444] transition-all duration-150 before:absolute before:-top-[9px] before:left-0 before:block before:h-0.5 before:w-6 before:rounded-full before:bg-[#444] before:content-[''] before:transition-all before:duration-150 after:absolute after:-bottom-[9px] after:left-0 after:block after:h-0.5 after:w-6 after:rounded-full after:bg-[#444] after:content-[''] after:transition-all after:duration-150 group-hover:w-6 group-hover:bg-[#203b3b] group-hover:before:w-4 group-hover:before:bg-[#203b3b] group-hover:after:w-4 group-hover:after:bg-[#203b3b]"></span>
+        </span>
+      </button>
+    </div>
+  </div>
+  <SidePanel links={links} />
+</header>
+
+<script>
+  import { initHeaderPanel } from "../../scripts/animations/header-panel";
+  initHeaderPanel();
+</script>

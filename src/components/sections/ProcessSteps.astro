@@ -1,0 +1,97 @@
+---
+import { Image } from "astro:assets";
+import { Check } from "@lucide/astro";
+import mainImage from "../../assets/who-we-are-2.jpg";
+import secondImage from "../../assets/banner-image-3.jpg";
+import { processSteps } from "../../data/process-steps";
+
+const benefits = [
+  "Safe lifting practices and modern tools",
+  "Fragile, artwork, electronics, and heavy items",
+  "High-quality packing materials for maximum protection",
+];
+---
+
+<section
+  id="process-steps"
+  class="bg-white py-20 md:py-24 lg:py-28"
+  aria-labelledby="process-steps-heading"
+>
+  <div class="mx-auto grid max-w-7xl items-center gap-12 px-5 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:px-8 xl:gap-20">
+    <ol class="order-2 space-y-3 lg:order-1" aria-label="Our moving process">
+      {processSteps.map((step) => (
+        <li
+          class="group grid grid-cols-[48px_minmax(0,1fr)] items-stretch gap-3 sm:grid-cols-[56px_minmax(0,1fr)] sm:gap-4 lg:grid-cols-[64px_minmax(0,1fr)]"
+          data-process-step
+        >
+          <div class="flex min-h-[136px] items-center justify-center rounded-full border border-[#e7e4e2] bg-white text-[#203b3b] transition-colors duration-300 group-hover:border-[#f0c653] group-hover:bg-[#f0c653] group-focus-within:border-[#f0c653] group-focus-within:bg-[#f0c653] sm:min-h-[145px]">
+            <span class="-rotate-90 text-lg font-medium tracking-tight sm:text-xl">
+              {step.number}
+            </span>
+          </div>
+          <article class="flex min-w-0 items-center gap-4 rounded-[20px] bg-[#f6f1ec] px-4 py-5 transition-colors duration-300 group-hover:bg-[#f3ece5] sm:gap-5 sm:px-6 lg:px-7">
+            <span class="inline-flex min-h-[60px] shrink-0 items-center justify-center rounded-full bg-white px-2.5 text-xs font-medium text-[#203b3b] [writing-mode:vertical-rl] [transform:rotate(180deg)]">
+              {step.label}
+            </span>
+            <div class="min-w-0">
+              <h3 class="text-lg leading-snug font-semibold text-[#203b3b] sm:text-xl">
+                {step.title}
+              </h3>
+              <p class="mt-2 max-w-sm text-sm leading-6 text-[#858b8d] sm:text-base sm:leading-7">
+                {step.description}
+              </p>
+            </div>
+          </article>
+        </li>
+      ))}
+    </ol>
+
+    <div class="order-1 min-w-0 lg:order-2">
+      <h2
+        id="process-steps-heading"
+        class="text-[clamp(2.35rem,3.5vw,3.75rem)] leading-[1.08] font-semibold tracking-[-0.04em] text-[#203b3b]"
+      >
+        <span class="block">Simple Process for a</span>
+        <span class="block text-[#f0c653]">Smooth Move</span>
+      </h2>
+
+      <div
+        class="mt-9 grid h-[280px] grid-cols-[1.25fr_0.75fr] gap-3 sm:h-[320px] sm:gap-4 lg:h-[300px] xl:h-[340px]"
+        aria-label="Moving and packing in progress"
+      >
+        <div class="min-w-0 overflow-hidden rounded-[22px] bg-[#e9e4de]">
+          <Image
+            src={mainImage}
+            alt="People carrying moving boxes indoors"
+            class="size-full object-cover object-center"
+            loading="lazy"
+          />
+        </div>
+        <div class="min-w-0 overflow-hidden rounded-[22px] bg-[#e9e4de]">
+          <Image
+            src={secondImage}
+            alt="Packed moving boxes in a sunlit room"
+            class="size-full object-cover object-center"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <ul class="mt-7 space-y-3">
+        {benefits.map((benefit) => (
+          <li class="flex items-start gap-3 text-sm leading-6 font-medium text-[#203b3b] sm:text-[15px]">
+            <span class="mt-1 grid size-[17px] shrink-0 place-items-center rounded-full bg-[#f0c653] text-white">
+              <Check size={12} strokeWidth={3} aria-hidden="true" />
+            </span>
+            <span>{benefit}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initProcessSteps } from "../../scripts/animations/process-steps";
+  initProcessSteps();
+</script>

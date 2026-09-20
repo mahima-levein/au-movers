@@ -1,0 +1,113 @@
+---
+import { Image } from "astro:assets";
+import image1 from "../../assets/vertical-g1.jpg";
+import image2 from "../../assets/vertical-g2.jpg";
+import image3 from "../../assets/vertical-g3.jpg";
+import image4 from "../../assets/vertical-g4.jpg";
+import image5 from "../../assets/vertical-g5.jpg";
+import image6 from "../../assets/vertical-g6.jpg";
+import horizontal1 from "../../assets/horizontal-g1.jpg";
+import horizontal2 from "../../assets/horizontal-g2.jpg";
+import horizontal3 from "../../assets/horizontal-g3.jpg";
+import horizontal4 from "../../assets/horizontal-g4.jpg";
+import horizontal5 from "../../assets/horizontal-g5.jpg";
+import horizontal6 from "../../assets/horizontal-g6.jpg";
+import horizontal7 from "../../assets/horizontal-g7.jpg";
+import horizontal8 from "../../assets/horizontal-g8.jpg";
+
+const columns = [
+  { direction: "up", images: [image3, image4, image2] },
+  { direction: "down", images: [image6, image5, image1] },
+];
+const mobileRows = [
+  {
+    direction: "left",
+    images: [horizontal1, horizontal2, horizontal3, horizontal4],
+  },
+  {
+    direction: "right",
+    images: [horizontal5, horizontal6, horizontal7, horizontal8],
+  },
+];
+---
+
+<div
+  class="hero-gallery absolute top-0 right-[max(4vw,calc((100vw-1590px)/2))] z-1 grid h-full w-[min(36vw,600px)] grid-cols-2 gap-3.5 overflow-hidden max-[1250px]:right-[3vw] max-[1250px]:w-[38vw] max-[850px]:top-auto max-[850px]:right-[4vw] max-[850px]:bottom-[-8%] max-[850px]:h-[55%] max-[850px]:w-[46vw] max-[850px]:opacity-[0.82] max-[620px]:hidden"
+  data-hero-gallery
+  aria-hidden="true"
+>
+  <span
+    class="pointer-events-none absolute inset-x-0 top-0 z-2 h-[18%] bg-[linear-gradient(#faf6f2_0%,rgb(250_246_242_/_0%)_100%)]"
+    aria-hidden="true"
+  ></span>
+  <span
+    class="pointer-events-none absolute inset-x-0 bottom-0 z-2 h-[18%] bg-[linear-gradient(rgb(250_246_242_/_0%)_0%,#faf6f2_100%)]"
+    aria-hidden="true"
+  ></span>
+  {columns.map(({ direction, images }) => (
+    <div
+      class:list={[
+        "hero-gallery-column overflow-hidden",
+        direction === "down" && "pt-[22px]",
+      ]}
+      data-hero-marquee={direction}
+    >
+      <div class="hero-gallery-track flex flex-col gap-3.5 max-[620px]:gap-[9px]">
+        {[0, 1].map((copy) => (
+          <div class="hero-gallery-set flex flex-col gap-3.5 max-[620px]:gap-[9px]">
+            {images.map((src, index) => (
+              <div class="group aspect-[0.74] w-full overflow-hidden rounded-[19px] bg-[#e9e4de] max-[620px]:rounded-[13px]">
+                <Image
+                  src={src}
+                  alt=""
+                  class="block size-full object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none"
+                  loading={copy === 0 && index === 0 ? "eager" : "lazy"}
+                />
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
+
+<div
+  class="absolute inset-x-0 bottom-[-1%] z-1 hidden h-[39%] flex-col gap-2.5 overflow-hidden opacity-85 max-[620px]:flex"
+  data-hero-gallery-mobile
+  aria-hidden="true"
+>
+  <span class="pointer-events-none absolute inset-y-0 left-0 z-2 w-[12%] bg-linear-to-r from-[#faf6f2] to-transparent"></span>
+  <span class="pointer-events-none absolute inset-y-0 right-0 z-2 w-[12%] bg-linear-to-l from-[#faf6f2] to-transparent"></span>
+  {mobileRows.map(({ direction, images }) => (
+    <div
+      class="min-h-0 flex-1 overflow-hidden"
+      data-hero-marquee={direction}
+      data-marquee-axis="x"
+    >
+      <div class="hero-gallery-track flex h-full w-max gap-2.5">
+        {[0, 1].map((copy) => (
+          <div class="hero-gallery-set flex h-full gap-2.5">
+            {images.map((src, index) => (
+              <div class="aspect-[1.55] h-full shrink-0 overflow-hidden rounded-[14px] bg-[#e9e4de]">
+                <Image
+                  src={src}
+                  alt=""
+                  widths={[320, 480]}
+                  sizes="48vw"
+                  class="block size-full object-cover"
+                  loading={copy === 0 && index === 0 ? "eager" : "lazy"}
+                />
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
+
+<script>
+  import { initHeroGallery } from "../../scripts/animations/hero-gallery";
+  initHeroGallery();
+</script>

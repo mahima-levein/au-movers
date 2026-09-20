@@ -1,0 +1,65 @@
+---
+import { X, Phone, ArrowRight } from "@lucide/astro";
+
+interface Props {
+  links: { label: string; href: string }[];
+}
+
+const { links } = Astro.props;
+---
+
+<div id="site-side-panel" class="fixed inset-0 z-30 p-0" hidden>
+  <button
+    class="panel-backdrop absolute inset-0 w-full cursor-pointer border-0 bg-[rgb(9_14_14_/_55%)]"
+    type="button"
+    aria-label="Close navigation menu"
+  ></button>
+  <div
+    class="panel-surface absolute top-0 right-0 flex h-dvh w-[min(440px,90vw)] flex-col overflow-y-auto rounded-l-3xl bg-[#1b1c1b] px-[clamp(26px,4vw,45px)] py-[30px] text-[#f8f7f3] shadow-[-20px_0_50px_rgb(0_0_0_/_12%)] max-[620px]:w-screen max-[620px]:rounded-none"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Navigation menu"
+  >
+    <div class="flex items-center justify-between gap-5 border-b border-white/12 pb-[34px]">
+      <span class="text-lg font-extrabold tracking-[-0.04em]">ANP MOVERS</span>
+      <button
+        class="panel-close grid size-[42px] cursor-pointer place-items-center rounded-full border border-white/28 bg-transparent text-inherit transition-colors hover:bg-white/12 focus-visible:outline-2 focus-visible:outline-[#e5c47b] focus-visible:outline-offset-[3px]"
+        type="button"
+        aria-label="Close navigation menu"
+      >
+        <X size={22} strokeWidth={1.7} aria-hidden="true" />
+      </button>
+    </div>
+    <nav aria-label="Menu navigation">
+      <ul class="panel-links my-[30px] list-none p-0">
+        {links.map(({ label, href }) => (
+          <li>
+            <a
+              class="block py-2.5 text-[clamp(25px,4vw,36px)] font-medium tracking-[-0.04em] text-inherit transition-colors hover:text-[#e4c47b] focus-visible:outline-2 focus-visible:outline-[#e5c47b] focus-visible:outline-offset-[3px]"
+              href={href}
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="panel-actions mt-auto grid gap-[13px] border-t border-white/12 pt-6">
+      <a
+        class="flex min-h-12 items-center justify-center gap-2.5 rounded-full border border-white/23 text-sm text-inherit transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-[#e5c47b] focus-visible:outline-offset-[3px]"
+        href="tel:+94774166098"
+      >
+        <Phone size={18} aria-hidden="true" /> +94 77 416 6098
+      </a>
+      <a
+        class="inline-flex min-h-[50px] items-center justify-between gap-3 rounded-full bg-[#f0c653] py-1 pr-[5px] pl-6 text-sm font-semibold text-[#263735] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#e6b83b] focus-visible:outline-2 focus-visible:outline-[#e5c47b] focus-visible:outline-offset-[3px]"
+        href="#request-quote"
+      >
+        Let's Talk
+        <span class="grid size-10 place-items-center rounded-full bg-[#fffdf8]">
+          <ArrowRight size={19} strokeWidth={1.7} aria-hidden="true" />
+        </span>
+      </a>
+    </div>
+  </div>
+</div>

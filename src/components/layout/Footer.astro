@@ -1,0 +1,158 @@
+---
+import { ArrowUp } from "@lucide/astro";
+
+const companyLinks = [
+  ["About Us", "#who-we-are"],
+  ["Our Services", "#services"],
+  ["Our Blogs", "#blog"],
+  ["Our Team", "#team"],
+  ["Contact Us", "#request-quote"],
+];
+const services = [
+  "Residential Moving",
+  "Commercial Moving",
+  "Local Moving",
+  "Long Distance Moving",
+  "Packing & Unpacking",
+];
+const footerLink =
+  "text-sm leading-[1.8] text-[#b8b8b5] transition-colors duration-200 hover:text-[#e5c47b] focus-visible:outline-2 focus-visible:outline-[#e5c47b] focus-visible:outline-offset-[3px]";
+---
+
+<footer
+  id="site-footer"
+  class="pb-3 text-[#f7f7f3]"
+>
+  <div class="relative mx-[clamp(12px,1vw,18px)] min-h-[360px] overflow-hidden rounded-[17px] bg-[#1c1c1b] px-[clamp(25px,5vw,70px)] pt-[clamp(40px,5vw,70px)] pb-[100px] max-[600px]:px-[27px] max-[600px]:pt-[42px] max-[600px]:pb-[90px]">
+    <span
+      class="pointer-events-none absolute bottom-[-195px] left-[2%] size-[260px] rounded-full border border-white/8"
+      aria-hidden="true"
+    ></span>
+    <span
+      class="pointer-events-none absolute right-[2%] bottom-[-190px] size-[260px] rounded-full border border-white/8"
+      aria-hidden="true"
+    ></span>
+    <div class="relative z-1 mx-auto grid max-w-7xl grid-cols-[1.45fr_0.65fr_0.85fr_1.15fr] gap-[clamp(24px,4vw,70px)] max-[950px]:grid-cols-2 max-[950px]:gap-10 max-[600px]:grid-cols-1 max-[600px]:gap-[34px]">
+      <div>
+        <h2 class="mb-5 text-[15px] leading-[1.2] font-bold tracking-[-0.03em] max-[600px]:mb-3.5">
+          ANP MOVERS
+        </h2>
+        <p class="mb-[18px] max-w-60 text-sm leading-[1.8] text-[#b8b8b5]">
+          Explore our moving services and get in touch with our team.
+        </p>
+        <a
+          class="text-sm font-bold text-white transition-colors hover:text-[#e5c47b] focus-visible:outline-2 focus-visible:outline-[#e5c47b] focus-visible:outline-offset-[3px]"
+          href="tel:+0255505550"
+        >
+          (+2) 5550 5550
+        </a>
+      </div>
+      <div>
+        <h2 class="mb-5 text-base leading-[1.2] font-bold tracking-[-0.03em] max-[600px]:mb-3.5">
+          Company
+        </h2>
+        <ul class="list-none space-y-[6px] p-0">
+          {companyLinks.map(([label, href]) => (
+            <li>
+              <a class={footerLink} href={href}>
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h2 class="mb-5 text-base leading-[1.2] font-bold tracking-[-0.03em] max-[600px]:mb-3.5">
+          Service
+        </h2>
+        <ul class="list-none space-y-[6px] p-0">
+          {services.map((label) => (
+            <li>
+              <a class={footerLink} href="#services">
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h2 class="mb-5 text-base leading-[1.2] font-bold tracking-[-0.03em] max-[600px]:mb-3.5">
+          Newsletter
+        </h2>
+        <p class="mb-[9px] text-sm leading-[1.8] text-[#b8b8b5]">
+          Updates from ANP MOVERS.
+        </p>
+        <form
+          id="newsletter-form"
+          class="flex max-w-[300px] items-center rounded-full border border-[#454544] bg-[#343434] p-1 focus-within:outline-2 focus-within:outline-[#e5c47b] focus-within:outline-offset-2"
+        >
+          <label class="sr-only" for="newsletter-email">
+            Your email address
+          </label>
+          <input
+            id="newsletter-email"
+            class="w-full min-w-0 border-0 bg-transparent px-[9px] py-[6px] text-sm text-white outline-0 placeholder:text-[#e0e0db]"
+            type="email"
+            name="email"
+            placeholder="Your email address"
+            required
+          />
+          <button
+            class="min-h-[26px] cursor-pointer rounded-full border-0 bg-[#e8c983] px-3 text-[10px] text-[#282318] transition-colors duration-200 hover:bg-[#f2dba5] focus-visible:outline-2 focus-visible:outline-[#e5c47b] focus-visible:outline-offset-[3px]"
+            type="submit"
+          >
+            Subscribe
+          </button>
+        </form>
+        <p
+          class="newsletter-status mt-1.5 text-[11px] text-[#e8c983] empty:hidden"
+          role="status"
+          aria-live="polite"
+        ></p>
+        <p class="mt-[9px] text-[11px] leading-[1.8] text-[#f7f7f3]">
+          I agree to the privacy policy.
+        </p>
+      </div>
+    </div>
+    <div class="relative z-1 mx-auto mt-[45px] mb-[18px] h-px max-w-[1050px] bg-white/10 max-[600px]:mt-[38px]"></div>
+    <p class="relative z-1 text-center text-sm text-[#c6c6c4]">
+      © 2026 ANP MOVERS. All Rights Reserved.
+    </p>
+    <span
+      class="pointer-events-none absolute bottom-[-75px] left-1/2 -translate-x-1/2 whitespace-nowrap text-[clamp(120px,18vw,250px)] leading-none font-extrabold tracking-[-0.08em] text-[#363636] max-[600px]:bottom-[-26px] max-[600px]:text-[20vw]"
+      aria-hidden="true"
+    >
+      ANP MOVERS
+    </span>
+    <button
+      class="back-to-top absolute right-4 bottom-4 z-2 grid size-[34px] cursor-pointer place-items-center rounded-full border-0 bg-[#f3e4bd] text-[#887347] transition-all duration-200 hover:-translate-y-[3px] hover:bg-[#e5c47b] focus-visible:outline-2 focus-visible:outline-[#e5c47b] focus-visible:outline-offset-[3px]"
+      type="button"
+      aria-label="Back to top"
+    >
+      <ArrowUp size={18} strokeWidth={1.6} aria-hidden="true" />
+    </button>
+  </div>
+</footer>
+
+<script>
+  document
+    .querySelector<HTMLFormElement>("#newsletter-form")
+    ?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const status = document.querySelector<HTMLElement>(
+        "#site-footer .newsletter-status",
+      );
+      if (status) status.textContent = "Subscriptions are not available yet.";
+    });
+
+  document
+    .querySelector<HTMLButtonElement>("#site-footer .back-to-top")
+    ?.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth",
+      });
+    });
+</script>

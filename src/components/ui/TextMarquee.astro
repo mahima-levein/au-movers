@@ -1,0 +1,58 @@
+---
+import { Package } from "@lucide/astro";
+
+interface Props {
+  id?: string;
+  items?: string[];
+}
+
+const {
+  id = "moving-text-loop",
+  items = ["MOVERS", "WAREHOUSING", "LOGISTIC", "TRANSPORTATION"],
+} = Astro.props;
+const cycles = Array.from({ length: 8 });
+---
+
+<section
+  id={id}
+  class="mx-[clamp(12px,1vw,18px)] rounded-b-[28px] overflow-hidden bg-neutral-950 py-2.5 text-white md:py-5"
+  aria-label="Moving services"
+>
+  <div class="overflow-hidden" data-text-marquee>
+    <div class="flex w-max" data-marquee-track>
+      {[0, 1].map((copy) => (
+        <div
+          class="flex shrink-0 items-center"
+          data-marquee-set
+          aria-hidden={copy === 1 ? "true" : undefined}
+        >
+          {cycles.map((_, cycle) => (
+            <div
+              class="flex shrink-0 items-center gap-4 pr-4"
+              aria-hidden={copy === 1 || cycle > 0 ? "true" : undefined}
+            >
+              {items.map((item) => (
+                <span class="inline-flex shrink-0 items-center gap-4 whitespace-nowrap">
+                  <span class="text-lg leading-none font-bold tracking-tight uppercase sm:text-xl md:text-2xl">
+                    {item}
+                  </span>
+                  <Package
+                    size={13}
+                    strokeWidth={1.7}
+                    class="text-[#f0c653]"
+                    aria-hidden="true"
+                  />
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initTextMarquee } from "../../scripts/animations/text-marquee";
+  initTextMarquee();
+</script>
