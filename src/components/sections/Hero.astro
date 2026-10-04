@@ -1,7 +1,13 @@
 ---
 import { ArrowRight, Play } from "@lucide/astro";
 import { Image } from "astro:assets";
-import image6 from "../../assets/vertical-g6.jpg";
+import image1 from "../../assets/h-1.jpg";
+import image2 from "../../assets/h-2.jpg";
+import image3 from "../../assets/h-3.jpg";
+import image4 from "../../assets/h-4.jpg";
+import image5 from "../../assets/h-5.jpg";
+import image6 from "../../assets/h-6.jpg";
+const capsuleImages = [image1, image2, image3, image4, image5, image6];
 import HeroGallery from "./HeroGallery.astro";
 import TextMarquee from "../../components/ui/TextMarquee.astro";
 ---
@@ -25,13 +31,28 @@ import TextMarquee from "../../components/ui/TextMarquee.astro";
         </span>
         <span class="flex items-center gap-[0.18em] whitespace-nowrap max-[620px]:whitespace-normal">
           <span>and</span>
-          <span class="inline-block h-[0.65em] w-[1.75em] flex-none translate-y-[0.04em] overflow-hidden rounded-full">
-            <Image
-              src={image6}
-              alt=""
-              class="size-full object-cover object-[center_58%]"
-            />
-          </span>
+          <button
+            type="button"
+            data-hero-capsule
+            aria-label="Pause rotating moving images"
+            aria-pressed="false"
+            title="Pause or resume images"
+            class="relative inline-block h-[0.65em] w-[1.75em] flex-none translate-y-[0.04em] cursor-pointer overflow-hidden rounded-full focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4"
+          >
+            {capsuleImages.map((image, index) => (
+              <Image
+                src={image}
+                alt=""
+                width={320}
+                loading="eager"
+                class:list={[
+                  "absolute inset-0 size-full object-cover object-center",
+                  index === 0 ? "opacity-100" : "opacity-0",
+                ]}
+                data-capsule-image
+              />
+            ))}
+          </button>
           <span>trust</span>
         </span>
       </h1>
@@ -72,3 +93,8 @@ import TextMarquee from "../../components/ui/TextMarquee.astro";
   </div>
 </section>
 <TextMarquee />
+
+<script>
+  import { initHeroCapsule } from "../../scripts/animations/hero-capsule";
+  initHeroCapsule();
+</script>

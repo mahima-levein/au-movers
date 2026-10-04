@@ -1,10 +1,10 @@
 import type { ImageMetadata } from "astro";
-import image1 from "../assets/vertical-g1.jpg";
-import image2 from "../assets/vertical-g2.jpg";
-import image3 from "../assets/vertical-g3.jpg";
-import image4 from "../assets/vertical-g4.jpg";
-import image5 from "../assets/vertical-g5.jpg";
-import image6 from "../assets/vertical-g6.jpg";
+import image1 from "../assets/h-1.jpg";
+import image2 from "../assets/h-2.jpg";
+import image3 from "../assets/h-3.jpg";
+import image4 from "../assets/h-4.jpg";
+import image5 from "../assets/h-5.jpg";
+import image6 from "../assets/h-6.jpg";
 export type ServiceIcon =
   "shield" | "safety" | "packing" | "planning" | "communication" | "care";
 export type ServiceItem = {

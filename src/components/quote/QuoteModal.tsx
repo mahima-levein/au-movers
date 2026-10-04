@@ -566,7 +566,7 @@ export default function QuoteModal() {
             </main>
 
             <section
-              className="mx-auto mt-5 max-w-7xl rounded-3xl bg-[#203b3b] p-5 text-white sm:p-7 hidden lg:block"
+              className="mx-auto mt-5 max-w-7xl rounded-3xl bg-[#142A51] p-5 text-white sm:p-7 hidden lg:block"
               aria-labelledby="move-summary-heading"
             >
               <div className="flex items-center justify-between">
