@@ -19,11 +19,11 @@ const customFeatures = [
     <div class="mx-auto max-w-5xl">
       <h2
         id="pricing-heading"
-        class="mx-auto max-w-4xl text-center text-[clamp(2.35rem,4vw,3.75rem)] leading-[1.1] font-semibold tracking-tight text-[#203b3b]"
+        class="mx-auto max-w-4xl text-center text-[clamp(2.35rem,4vw,3.75rem)] leading-[1.1] font-semibold tracking-tight text-brand-ink"
       >
         <span class="block">Select a Plan According to</span>
         <span class="block">
-          Your <span class="text-[#f0c653]">Requirements</span>
+          Your <span class="text-brand-gold">Requirements</span>
         </span>
       </h2>
 
@@ -38,7 +38,7 @@ const customFeatures = [
           >
             <div class="flex min-h-[66px] flex-wrap items-start justify-between gap-3">
               <div>
-                <h3 id={`plan-${plan.id}`} class="text-xl font-semibold">
+                <h3 id={`plan-${plan.id}`} class="text-brand-ink text-xl font-semibold">
                   {plan.name}
                 </h3>
                 <p class="mt-1 text-sm text-[#687274]">{plan.subtitle}</p>
@@ -111,7 +111,7 @@ const customFeatures = [
 
       <div class="mt-4 grid items-center gap-6 rounded-[18px] bg-[#203b3b] px-6 py-7 text-white sm:px-8 md:grid-cols-[1.3fr_1fr] lg:grid-cols-[1.35fr_1.4fr_auto] lg:gap-8">
         <div>
-          <h3 class="text-xl font-semibold">Need a Custom Plan</h3>
+          <h3 class="text-brand-gold text-xl font-semibold">Need a Custom Plan</h3>
           <p class="mt-1 max-w-sm text-sm leading-6 text-white/70">
             Tell us what you need for your move and we can discuss a plan that
             fits.

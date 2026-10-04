@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 @theme {
+	--color-brand-ink: #142A51;
+	--color-brand-gold: #CA9B34;
 	--font-sans: "Jost", sans-serif;
 }
 

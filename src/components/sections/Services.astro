@@ -11,40 +11,37 @@ import { services } from "../../data/services";
   <div class="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
     <h2
       id="services-heading"
-      class="mx-auto max-w-3xl text-center text-4xl leading-[1.08] font-semibold tracking-tight md:text-5xl xl:text-6xl"
+      class="text-white mx-auto max-w-3xl text-center text-4xl leading-[1.08] font-semibold tracking-tight md:text-5xl xl:text-6xl"
     >
-      Reliable Moving Services for
-      <br class="hidden sm:block" /> Homes{" "}
-      <span class="text-[#f0c653]">&amp; Businesses</span>
+      Care and Confidence for
+      <br class="hidden sm:block" /> Every{" "}
+      <span class="text-brand-gold">Move</span>
     </h2>
   </div>
   <div class="mx-auto max-w-[1720px] px-5 sm:px-6 lg:px-8">
     <div
-      class="mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 outline-offset-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden focus-visible:outline-2 focus-visible:outline-[#f0c653] md:mt-14"
+      class="mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 outline-offset-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden focus-visible:outline-2 focus-visible:outline-brand-gold md:mt-14"
       data-services-slider
       role="region"
-      aria-label="Moving services, scroll horizontally to see more"
+      aria-label="Moving qualities, scroll horizontally to see all six cards"
       tabindex="0"
     >
       {services.map((service) => (
         <ServiceCard service={service} />
       ))}
-      {services.map((service) => (
-        <ServiceCard service={service} duplicate />
-      ))}
     </div>
     <div
       class="mt-4 flex items-center justify-center gap-2"
       data-services-pagination
-      aria-label="Choose a moving service"
+      aria-label="Choose a moving quality"
     >
       {services.map((service, index) => (
         <button
           type="button"
           class:list={[
-            "h-2.5 cursor-pointer rounded-full transition-[width,background-color] duration-300 focus-visible:outline-2 focus-visible:outline-[#f0c653] focus-visible:outline-offset-4",
+            "h-2.5 cursor-pointer rounded-full transition-[width,background-color] duration-300 focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4",
             index === 0
-              ? "w-7 bg-[#f0c653]"
+              ? "w-7 bg-brand-gold"
               : "w-2.5 bg-white/35 hover:bg-white/65",
           ]}
           data-service-dot

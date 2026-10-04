@@ -4,6 +4,7 @@ import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
 import QuoteModal from "../components/quote/QuoteModal";
 import SiteLoader from "../components/ui/SiteLoader.astro";
+import FloatingCall from "../components/ui/FloatingCall.astro";
 
 interface Props {
   title?: string;
@@ -35,6 +36,7 @@ const { title = "ANP MOVERS", description = "" } = Astro.props;
       <slot />
     </div>
     <Footer />
+    <FloatingCall />
     <QuoteModal client:load />
   </body>
 </html>

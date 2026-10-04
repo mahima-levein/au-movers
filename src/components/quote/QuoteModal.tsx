@@ -298,7 +298,7 @@ export default function QuoteModal() {
             </span>
             <h2
               id="quote-modal-title"
-              className="text-lg font-semibold text-[#203b3b]"
+              className="text-lg font-semibold text-brand-ink"
             >
               Get Your Free Moving Quote
             </h2>
@@ -319,7 +319,7 @@ export default function QuoteModal() {
               <span className="mx-auto grid size-20 place-items-center rounded-full bg-emerald-100 text-emerald-700">
                 <CircleCheck size={42} />
               </span>
-              <h3 className="mt-6 text-4xl font-semibold text-[#203b3b]">
+              <h3 className="mt-6 text-4xl font-semibold text-brand-ink">
                 Thank You!
               </h3>
               <p className="mx-auto mt-3 max-w-md text-neutral-600">
@@ -390,7 +390,7 @@ export default function QuoteModal() {
             <main className="mx-auto mt-5 max-w-4xl rounded-3xl bg-white p-5 shadow-sm sm:p-8">
               {session.currentStep === 0 && (
                 <>
-                  <h3 className="text-2xl font-semibold text-[#203b3b]">
+                  <h3 className="text-2xl font-semibold text-brand-ink">
                     Get a Free Moving Quote
                   </h3>
                   <p className="mt-1 text-sm text-neutral-500">
@@ -440,7 +440,7 @@ export default function QuoteModal() {
               )}
               {session.currentStep === 1 && (
                 <>
-                  <h3 className="text-2xl font-semibold text-[#203b3b]">
+                  <h3 className="text-2xl font-semibold text-brand-ink">
                     What type of property?
                   </h3>
                   <p className="mt-1 mb-6 text-sm text-neutral-500">
@@ -453,7 +453,7 @@ export default function QuoteModal() {
               )}
               {session.currentStep === 2 && data.propertyType && (
                 <>
-                  <h3 className="text-2xl font-semibold text-[#203b3b]">
+                  <h3 className="text-2xl font-semibold text-brand-ink">
                     Size of your move?
                   </h3>
                   <p className="mt-1 mb-6 text-sm text-neutral-500">
@@ -468,7 +468,7 @@ export default function QuoteModal() {
               )}
               {session.currentStep === 3 && (
                 <>
-                  <h3 className="text-2xl font-semibold text-[#203b3b]">
+                  <h3 className="text-2xl font-semibold text-brand-ink">
                     When are you moving?
                   </h3>
                   <p className="mt-1 mb-4 text-sm text-neutral-500">
@@ -503,7 +503,7 @@ export default function QuoteModal() {
               )}
               {session.currentStep === 4 && (
                 <>
-                  <h3 className="text-2xl font-semibold text-[#203b3b]">
+                  <h3 className="text-2xl font-semibold text-brand-ink">
                     Electricity, Gas & Internet
                   </h3>
                   <p className="mt-1 mb-6 text-sm text-neutral-500">
@@ -516,7 +516,7 @@ export default function QuoteModal() {
               )}
               {session.currentStep === 5 && (
                 <>
-                  <h3 className="text-2xl font-semibold text-[#203b3b]">
+                  <h3 className="text-2xl font-semibold text-brand-ink">
                     Almost there!
                   </h3>
                   <p className="mt-1 text-sm text-neutral-500">
@@ -570,7 +570,7 @@ export default function QuoteModal() {
               aria-labelledby="move-summary-heading"
             >
               <div className="flex items-center justify-between">
-                <h3 id="move-summary-heading" className="text-lg font-semibold">
+                <h3 id="move-summary-heading" className="text-brand-gold text-lg font-semibold">
                   Move Summary
                 </h3>
                 <span className="font-semibold text-[#f0c653]">

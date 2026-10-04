@@ -1,13 +1,12 @@
 import type { ImageMetadata } from "astro";
-import commercialImage from "../assets/vertical-g2.jpg";
-import furnitureImage from "../assets/vertical-g3.jpg";
-import localImage from "../assets/vertical-g1.jpg";
-import longDistanceImage from "../assets/vertical-g6.jpg";
-import packingImage from "../assets/vertical-g5.jpg";
-
+import image1 from "../assets/vertical-g1.jpg";
+import image2 from "../assets/vertical-g2.jpg";
+import image3 from "../assets/vertical-g3.jpg";
+import image4 from "../assets/vertical-g4.jpg";
+import image5 from "../assets/vertical-g5.jpg";
+import image6 from "../assets/vertical-g6.jpg";
 export type ServiceIcon =
-  "building" | "package" | "map-pin" | "truck" | "package-check";
-
+  "shield" | "safety" | "packing" | "planning" | "communication" | "care";
 export type ServiceItem = {
   id: string;
   number: string;
@@ -15,48 +14,60 @@ export type ServiceItem = {
   description: string;
   image: ImageMetadata;
   icon: ServiceIcon;
-  href?: string;
 };
-
 export const services: ServiceItem[] = [
   {
-    id: "commercial-moving",
+    id: "insurance",
+    number: "01",
+    title: "Insurance & Peace of Mind",
+    description:
+      "Ask us about coverage options and the details to consider before your move.",
+    image: image6,
+    icon: "shield",
+  },
+  {
+    id: "safety",
     number: "02",
-    title: "Commercial Moving",
-    description: "Moving support for offices and commercial spaces.",
-    image: commercialImage,
-    icon: "building",
+    title: "Safety at Every Step",
+    description:
+      "Discuss safe handling, loading and transport for your belongings.",
+    image: image2,
+    icon: "safety",
   },
   {
-    id: "furniture-disassembly",
+    id: "packing",
     number: "03",
-    title: "Furniture Disassembly",
-    description: "Help with taking furniture apart before a move.",
-    image: furnitureImage,
-    icon: "package",
+    title: "Careful Packing",
+    description:
+      "Plan the packing and protection your furniture and fragile items need.",
+    image: image5,
+    icon: "packing",
   },
   {
-    id: "local-moving",
+    id: "planning",
     number: "04",
-    title: "Local Moving",
-    description: "Moving support for shorter journeys nearby.",
-    image: localImage,
-    icon: "map-pin",
+    title: "Thoughtful Move Planning",
+    description:
+      "Talk through access, timing and the details that matter for your move.",
+    image: image1,
+    icon: "planning",
   },
   {
-    id: "long-distance-moving",
+    id: "communication",
     number: "05",
-    title: "Long-Distance Moving",
-    description: "Planning and transport for moves over longer distances.",
-    image: longDistanceImage,
-    icon: "truck",
+    title: "Clear Communication",
+    description:
+      "Get in touch with questions and discuss what to expect on moving day.",
+    image: image4,
+    icon: "communication",
   },
   {
-    id: "packing-unpacking",
+    id: "care",
     number: "06",
-    title: "Packing & Unpacking",
-    description: "Support with packing boxes and settling in after a move.",
-    image: packingImage,
-    icon: "package-check",
+    title: "Care for Your Space",
+    description:
+      "Let us know about delicate surfaces, tight corners and special handling needs.",
+    image: image3,
+    icon: "care",
   },
 ];
