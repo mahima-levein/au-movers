@@ -27,18 +27,47 @@ const customFeatures = [
         </span>
       </h2>
 
-      <div class="mt-12 grid gap-4 md:grid-cols-2 md:gap-5 lg:mt-14">
-        {pricingPlans.map((plan) => (
+      <div
+        class="mx-auto mt-10 flex w-md max-w-full gap-1 rounded-2xl bg-[#f6f1ec] p-1.5 sm:rounded-full"
+        role="tablist"
+        aria-label="Packing options"
+      >
+        {pricingPlans.map((plan, index) => (
+          <button
+            id={`tab-${plan.id}`}
+            type="button"
+            role="tab"
+            aria-selected={index === 0 ? "true" : "false"}
+            aria-controls={`panel-${plan.id}`}
+            tabindex={index === 0 ? 0 : -1}
+            data-packing-tab
+            class="min-h-12 flex-1 cursor-pointer rounded-xl px-4 py-3 text-sm font-semibold text-brand-ink transition-colors hover:bg-brand-ink/10 focus-visible:outline-2 focus-visible:outline-brand-ink focus-visible:outline-offset-2 aria-selected:bg-brand-ink aria-selected:text-white sm:rounded-full sm:px-6"
+          >
+            {plan.name}
+          </button>
+        ))}
+      </div>
+
+      <div class="mx-auto mt-6 max-w-[600px]">
+        {pricingPlans.map((plan, index) => (
           <article
+            id={`panel-${plan.id}`}
+            role="tabpanel"
+            aria-labelledby={`tab-${plan.id}`}
+            tabindex="0"
+            hidden={index !== 0}
+            data-packing-panel
             class:list={[
-              "group flex min-w-0 flex-col overflow-hidden rounded-[22px] p-6 text-[#203b3b] transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lg sm:p-8 lg:p-9",
+              "group flex min-w-0 flex-col overflow-hidden rounded-[22px] p-6 text-[#203b3b] transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-brand-ink focus-visible:outline-offset-4 motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-8 lg:p-9 [&[hidden]]:hidden",
               plan.featured ? "bg-[#e8c45c]" : "bg-[#f6f1ec]",
             ]}
-            aria-labelledby={`plan-${plan.id}`}
           >
             <div class="flex min-h-[66px] flex-wrap items-start justify-between gap-3">
               <div>
-                <h3 id={`plan-${plan.id}`} class="text-brand-ink text-xl font-semibold">
+                <h3
+                  id={`plan-${plan.id}`}
+                  class="text-brand-ink text-xl font-semibold"
+                >
                   {plan.name}
                 </h3>
                 <p class="mt-1 text-sm text-[#687274]">{plan.subtitle}</p>
@@ -57,7 +86,7 @@ const customFeatures = [
               <span class="pb-1 text-sm text-[#4f6262]">{plan.suffix}</span>
             </p>
 
-            <ul class="mt-10 grid grid-cols-1 gap-x-5 gap-y-3 text-[13px] sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
+            <ul class="mt-10 grid grid-cols-1 gap-x-5 gap-y-3 text-[13px] sm:grid-cols-2">
               {plan.features.map((feature) => (
                 <li
                   class:list={[
@@ -111,7 +140,9 @@ const customFeatures = [
 
       <div class="mt-4 grid items-center gap-6 rounded-[18px] bg-[#142A51] px-6 py-7 text-white sm:px-8 md:grid-cols-[1.3fr_1fr] lg:grid-cols-[1.35fr_1.4fr_auto] lg:gap-8">
         <div>
-          <h3 class="text-brand-gold text-xl font-semibold">Need a Custom Plan</h3>
+          <h3 class="text-brand-gold text-xl font-semibold">
+            Need a Custom Plan
+          </h3>
           <p class="mt-1 max-w-sm text-sm leading-6 text-white/70">
             Tell us what you need for your move and we can discuss a plan that
             fits.
@@ -147,3 +178,39 @@ const customFeatures = [
     </div>
   </div>
 </section>
+
+<script>
+  const section = document.querySelector("#pricing");
+  const tabs = [
+    ...(section?.querySelectorAll<HTMLButtonElement>("[data-packing-tab]") ??
+      []),
+  ];
+  const panels = [
+    ...(section?.querySelectorAll<HTMLElement>("[data-packing-panel]") ?? []),
+  ];
+
+  function selectTab(index: number) {
+    tabs.forEach((tab, tabIndex) => {
+      const active = tabIndex === index;
+      tab.setAttribute("aria-selected", String(active));
+      tab.tabIndex = active ? 0 : -1;
+      panels[tabIndex].hidden = !active;
+    });
+  }
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => selectTab(index));
+    tab.addEventListener("keydown", (event) => {
+      let next = index;
+      if (event.key === "ArrowRight") next = (index + 1) % tabs.length;
+      else if (event.key === "ArrowLeft")
+        next = (index - 1 + tabs.length) % tabs.length;
+      else if (event.key === "Home") next = 0;
+      else if (event.key === "End") next = tabs.length - 1;
+      else return;
+      event.preventDefault();
+      selectTab(next);
+      tabs[next].focus();
+    });
+  });
+</script>

@@ -6,7 +6,7 @@ import image4 from "../assets/h-4.jpg";
 import image5 from "../assets/h-5.jpg";
 import image6 from "../assets/h-6.jpg";
 export type ServiceIcon =
-  "shield" | "safety" | "packing" | "planning" | "communication" | "care";
+  "preparation" | "safety" | "packing" | "planning" | "communication" | "care";
 export type ServiceItem = {
   id: string;
   number: string;
@@ -17,13 +17,13 @@ export type ServiceItem = {
 };
 export const services: ServiceItem[] = [
   {
-    id: "insurance",
+    id: "preparation",
     number: "01",
-    title: "Insurance & Peace of Mind",
+    title: "Moving Day Preparation",
     description:
-      "Ask us about coverage options and the details to consider before your move.",
+      "Set aside essentials and prepare your belongings for a smoother moving day.",
     image: image6,
-    icon: "shield",
+    icon: "preparation",
   },
   {
     id: "safety",

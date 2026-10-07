@@ -38,11 +38,12 @@ export function initServices() {
     card.getBoundingClientRect().left -
     slider.getBoundingClientRect().left +
     slider.scrollLeft;
+  let stops: number[] = [];
   const updateDots = () => {
-    const index = cards.reduce(
-      (nearest, card, index) =>
-        Math.abs(position(card) - slider.scrollLeft) <
-        Math.abs(position(cards[nearest]) - slider.scrollLeft)
+    const index = stops.reduce(
+      (nearest, stop, index) =>
+        Math.abs(stop - slider.scrollLeft) <
+        Math.abs(stops[nearest] - slider.scrollLeft)
           ? index
           : nearest,
       0,
@@ -56,6 +57,24 @@ export function initServices() {
       dot.classList.toggle("bg-white/35", !active);
     });
   };
+  const updateStops = () => {
+    const maxScroll = Math.max(0, slider.scrollWidth - slider.clientWidth);
+    // Several cards can share the final clamped position when multiple cards fit.
+    stops = cards
+      .map((card) => Math.min(maxScroll, Math.max(0, position(card))))
+      .filter(
+        (stop, index, positions) =>
+          index === 0 || stop - positions[index - 1] > 1,
+      );
+    dots.forEach((dot, index) => {
+      dot.hidden = index >= stops.length;
+      dot.setAttribute(
+        "aria-label",
+        `Show moving qualities, position ${index + 1} of ${stops.length}`,
+      );
+    });
+    updateDots();
+  };
   let frame = 0;
   slider.addEventListener(
     "scroll",
@@ -68,11 +87,13 @@ export function initServices() {
   dots.forEach((dot, index) =>
     dot.addEventListener("click", () =>
       slider.scrollTo({
-        left: position(cards[index]),
+        left: stops[index] ?? 0,
         behavior: reducedMotion.matches ? "auto" : "smooth",
       }),
     ),
   );
-  window.addEventListener("resize", updateDots);
-  updateDots();
+  const observer = new ResizeObserver(updateStops);
+  observer.observe(slider);
+  cards.forEach((card) => observer.observe(card));
+  updateStops();
 }

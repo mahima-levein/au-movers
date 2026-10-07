@@ -16,38 +16,36 @@ export type PricingPlan = {
   href: string;
 };
 
-// Reference pricing and feature copy from the supplied design; replace with final plan details.
-const referenceFeatures: PricingFeature[] = [
-  { label: "Unlimited Pages", available: true },
-  { label: "Full Access to the Library", available: true },
-  { label: "Advanced analytics", available: true },
-  { label: "Complete Documentation", available: true },
-  { label: "Core Analytics Tools", available: false },
-  { label: "24/7 Free Support", available: false },
-  { label: "Customer care point", available: false },
-  { label: "Cloud Storage Backup", available: true },
-];
-
 export const pricingPlans: PricingPlan[] = [
   {
-    id: "basic-move",
-    name: "Basic Move",
-    subtitle: "Perfect for small apartments",
+    id: "basic-packing",
+    name: "Standard Pack",
+    subtitle: "Simple wrapping for your everyday moving needs",
     price: "$130",
     suffix: "/ visit",
-    features: referenceFeatures,
+    features: [
+      { label: "Basic furniture wrapping", available: true },
+      { label: "Surface protection", available: true },
+      { label: "Items prepared for loading", available: true },
+      { label: "Packing needs discussed before your move", available: true },
+    ],
     ctaLabel: "Select Plan",
     href: "tel:+94774166098",
   },
   {
-    id: "premium-move",
-    name: "Premium Move",
-    subtitle: "Large homes & long-distance",
+    id: "black-shrink-wrap-packing",
+    name: "Shrink Wrap",
+    subtitle: "A covered finish for furniture and larger belongings",
     price: "$699",
     suffix: "/ visit",
     featured: true,
-    badge: "Most Popular",
-    features: referenceFeatures,
+    badge: "Black Wrap",
+    features: [
+      { label: "Black shrink wrap covering", available: true },
+      { label: "Furniture surfaces covered", available: true },
+      { label: "Contents concealed by opaque wrap", available: true },
+      { label: "Wrapping needs discussed before your move", available: true },
+    ],
     ctaLabel: "Select Plan",
     href: "tel:+94774166098",
   },
