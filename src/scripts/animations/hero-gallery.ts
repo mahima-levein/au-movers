@@ -8,19 +8,31 @@ export function initHeroGallery() {
     ...gallery.querySelectorAll<HTMLElement>("[data-hero-marquee]"),
   ];
   const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  let tweens: gsap.core.Tween[] = [];
+  const tweens = new Map<HTMLElement, gsap.core.Tween>();
+  let visible = false;
+  let disposed = false;
   let frame = 0;
 
+  function syncPlayback() {
+    tweens.forEach((tween) => tween.paused(!visible || document.hidden));
+  }
+
   function rebuild() {
-    tweens.forEach((tween) => tween.kill());
-    tweens = [];
+    if (disposed) return;
 
     for (const column of columns) {
       const track = column.querySelector<HTMLElement>(".hero-gallery-track");
       const firstSet = column.querySelector<HTMLElement>(".hero-gallery-set");
       if (!track || !firstSet) continue;
-      gsap.set(track, { clearProps: "transform" });
-      if (motion.matches) continue;
+      const previous = tweens.get(column);
+      const progress = previous?.progress() ?? 0;
+      previous?.kill();
+      tweens.delete(column);
+      // Hidden desktop/mobile variants must not create running animation layers.
+      if (motion.matches || !column.clientWidth || !column.clientHeight) {
+        gsap.set(track, { clearProps: "transform,willChange" });
+        continue;
+      }
 
       const horizontal = column.dataset.marqueeAxis === "x";
       const trackStyle = getComputedStyle(track);
@@ -32,23 +44,30 @@ export function initHeroGallery() {
       const towardStart = ["up", "left"].includes(
         column.dataset.heroMarquee ?? "",
       );
-      tweens.push(
-        gsap.fromTo(
-          track,
-          horizontal
-            ? { x: towardStart ? 0 : -distance }
-            : { y: towardStart ? 0 : -distance },
-          {
-            ...(horizontal
-              ? { x: towardStart ? -distance : 0 }
-              : { y: towardStart ? -distance : 0 }),
-            duration: distance / 32,
-            ease: "none",
-            repeat: -1,
-          },
-        ),
+      track.style.willChange = "transform";
+      tweens.set(
+        column,
+        gsap
+          .fromTo(
+            track,
+            horizontal
+              ? { x: towardStart ? 0 : -distance }
+              : { y: towardStart ? 0 : -distance },
+            {
+              ...(horizontal
+                ? { x: towardStart ? -distance : 0 }
+                : { y: towardStart ? -distance : 0 }),
+              duration: distance / 32,
+              ease: "none",
+              repeat: -1,
+              force3D: true,
+              paused: true,
+            },
+          )
+          .progress(progress),
       );
     }
+    syncPlayback();
   }
 
   function scheduleRebuild() {
@@ -57,9 +76,31 @@ export function initHeroGallery() {
   }
 
   const observer = new ResizeObserver(scheduleRebuild);
-  columns.forEach((column) =>
-    observer.observe(column.querySelector(".hero-gallery-set")!),
-  );
+  columns.forEach((column) => {
+    const set = column.querySelector(".hero-gallery-set");
+    if (set) observer.observe(set);
+  });
+  const visibilityObserver = new IntersectionObserver(([entry]) => {
+    visible = entry.isIntersecting;
+    syncPlayback();
+  });
+  visibilityObserver.observe(gallery);
+  document.addEventListener("visibilitychange", syncPlayback);
   motion.addEventListener("change", scheduleRebuild);
   scheduleRebuild();
+
+  document.addEventListener(
+    "astro:before-swap",
+    () => {
+      disposed = true;
+      cancelAnimationFrame(frame);
+      tweens.forEach((tween) => tween.kill());
+      tweens.clear();
+      observer.disconnect();
+      visibilityObserver.disconnect();
+      motion.removeEventListener("change", scheduleRebuild);
+      document.removeEventListener("visibilitychange", syncPlayback);
+    },
+    { once: true },
+  );
 }

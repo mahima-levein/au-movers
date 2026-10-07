@@ -88,7 +88,7 @@ const mobileRows = [
       <div class="hero-gallery-track flex h-full w-max gap-2.5">
         {[0, 1].map((copy) => (
           <div class="hero-gallery-set flex h-full gap-2.5">
-            {images.map((src, index) => (
+            {images.map((src) => (
               <div class="aspect-[1.55] h-full shrink-0 overflow-hidden rounded-[14px] bg-[#e9e4de]">
                 <Image
                   src={src}
@@ -96,7 +96,8 @@ const mobileRows = [
                   widths={[320, 480]}
                   sizes="48vw"
                   class="block size-full object-cover"
-                  loading={copy === 0 && index === 0 ? "eager" : "lazy"}
+                  loading={copy === 0 ? "eager" : "lazy"}
+                  decoding="async"
                 />
               </div>
             ))}
