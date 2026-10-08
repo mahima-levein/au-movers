@@ -1,0 +1,116 @@
+---
+import { Pause, Play, Quote } from "@lucide/astro";
+import { customerReviews } from "../../data/reviews";
+---
+
+{customerReviews.length > 0 && (
+  <section
+    id="customer-reviews"
+    class="mx-[clamp(12px,1vw,18px)] overflow-hidden rounded-[28px] bg-[#f8f3ef] py-20 md:py-24 lg:py-28"
+    aria-labelledby="reviews-heading"
+  >
+    <div class="mx-auto max-w-7xl px-5 text-center sm:px-6 lg:px-8">
+      <p class="inline-flex items-center gap-2 rounded-full bg-brand-ink/5 px-4 py-2 text-xs font-semibold tracking-wide text-brand-ink uppercase">
+        <span
+          class="size-1.5 rounded-full bg-brand-gold"
+          aria-hidden="true"
+        ></span>
+        Customer Reviews
+      </p>
+      <h2
+        id="reviews-heading"
+        class="mx-auto mt-5 max-w-4xl text-4xl leading-[1.08] font-semibold tracking-tight text-brand-ink sm:text-5xl lg:text-[3.5rem]"
+      >
+        <span class="block">What Our Customers Say</span>
+        <span class="block">
+          About <span class="text-brand-gold">Their Move</span>
+        </span>
+      </h2>
+      {customerReviews.some((review) => review.isSample) && (
+        <p class="mt-5 text-sm text-brand-ink/70">
+          Illustrative reviews with sample names, shown as examples.
+        </p>
+      )}
+    </div>
+    <div
+      data-reviews-slider
+      role="region"
+      aria-label="Customer review examples; swipe to explore"
+      tabindex="0"
+      class="mt-12 flex snap-x snap-mandatory scroll-px-5 items-stretch gap-5 overflow-x-auto px-5 pb-4 outline-offset-[-2px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden focus-visible:outline-2 focus-visible:outline-brand-gold md:mt-14 lg:scroll-px-8 lg:px-8"
+    >
+      {customerReviews.map((review) => (
+        <article
+          data-review-card
+          class="relative flex min-h-[290px] w-[min(84vw,440px)] shrink-0 snap-start flex-col rounded-[26px] border border-white/10 bg-brand-ink p-6 text-white transition-colors duration-300 hover:border-brand-gold/60 motion-reduce:transition-none sm:w-[46vw] sm:p-8 lg:w-[31vw] xl:max-w-[440px]"
+        >
+          <div class="flex items-center gap-3 pr-9">
+            <span
+              aria-hidden="true"
+              class="grid size-12 shrink-0 place-items-center rounded-full bg-brand-gold text-xl font-semibold text-brand-ink"
+            >
+              {review.name.charAt(0)}
+            </span>
+            <div class="min-w-0">
+              <h3 class="text-base leading-snug font-semibold">
+                {review.name}
+              </h3>
+              {review.isSample && (
+                <p class="mt-1 text-xs text-white/65">Sample review</p>
+              )}
+            </div>
+          </div>
+          <Quote
+            size={32}
+            fill="currentColor"
+            strokeWidth={0}
+            class="absolute top-8 right-6 text-white/20 sm:right-8"
+            aria-hidden="true"
+          />
+          <blockquote class="mt-6 flex-1 text-[15px] leading-7 text-white/90">
+            <p>{review.quote}</p>
+          </blockquote>
+        </article>
+      ))}
+    </div>
+    <div
+      class="mt-5 flex flex-wrap items-center justify-center gap-5 px-5 [&[hidden]]:hidden"
+      data-reviews-controls
+    >
+      <div
+        data-review-pagination
+        class="flex items-center justify-center gap-2"
+        aria-label="Review slider positions"
+      >
+        {customerReviews.map((_, index) => (
+          <button
+            type="button"
+            data-review-dot
+            aria-label={`Go to review position ${index + 1}`}
+            aria-current={index === 0 ? "true" : "false"}
+            class="h-2.5 w-2.5 cursor-pointer rounded-full bg-brand-ink/20 transition-[width,background-color] duration-300 hover:bg-brand-ink/40 focus-visible:outline-2 focus-visible:outline-brand-ink focus-visible:outline-offset-4 aria-[current=true]:w-7 aria-[current=true]:bg-brand-gold motion-reduce:transition-none"
+          ></button>
+        ))}
+      </div>
+      <button
+        type="button"
+        data-review-playback
+        aria-label="Pause automatic review scrolling"
+        aria-pressed="false"
+        class="group grid size-9 cursor-pointer place-items-center rounded-full border border-brand-ink/15 text-brand-ink transition-colors hover:bg-brand-ink/5 focus-visible:outline-2 focus-visible:outline-brand-ink focus-visible:outline-offset-2 [&[hidden]]:hidden"
+      >
+        <Pause size={16} class="group-aria-pressed:hidden" aria-hidden="true" />
+        <Play
+          size={16}
+          class="hidden group-aria-pressed:block"
+          aria-hidden="true"
+        />
+      </button>
+    </div>
+  </section>
+)}
+
+<script>
+  import { initReviewsCarousel } from "../../scripts/reviews-carousel";
+  initReviewsCarousel();
+</script>

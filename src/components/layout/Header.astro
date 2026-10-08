@@ -6,10 +6,15 @@ const links = [
   { label: "Home", href: "#home-hero" },
   { label: "About", href: "#who-we-are" },
   { label: "Services", href: "#services" },
-  { label: "Flow", href: "#process-steps" },
+  { label: "Steps", href: "#process-steps" },
   { label: "FAQs", href: "#faq" },
   { label: "Contact", href: "#request-quote" },
 ];
+const mobileLinks = links.flatMap((link) =>
+  link.href === "#faq"
+    ? [link, { label: "Reviews", href: "#customer-reviews" }]
+    : [link],
+);
 ---
 
 <header
@@ -73,7 +78,7 @@ const links = [
       </button>
     </div>
   </div>
-  <SidePanel links={links} />
+  <SidePanel links={mobileLinks} />
 </header>
 
 <script>

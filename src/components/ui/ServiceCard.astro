@@ -55,26 +55,30 @@ const buttonClass =
       {service.title}
     </h3>
     <p class="mt-2 text-sm leading-6 text-[#b9c8c7]">{service.description}</p>
-    <div class="mt-auto grid grid-cols-2 gap-2 pt-5">
-      <a
-        href="tel:+94774166098"
-        class:list={[buttonClass, "bg-brand-gold hover:bg-[#ddb24b]"]}
-        aria-label={`Call ANP Movers about ${service.title}`}
-      >
-        Call Now{" "}
-        <span class="grid size-8 shrink-0 place-items-center rounded-full bg-white">
-          <Phone size={15} aria-hidden="true" />
-        </span>
-      </a>
-      <a
-        href="#request-quote"
-        class:list={[buttonClass, "bg-white hover:bg-[#f5f0e5]"]}
-      >
-        Get in Touch{" "}
-        <span class="grid size-8 shrink-0 place-items-center rounded-full bg-brand-gold">
-          <ArrowRight size={16} aria-hidden="true" />
-        </span>
-      </a>
+    <div class="mt-auto grid grid-rows-[1fr] opacity-100 transition-[grid-template-rows,opacity,transform] duration-400 ease-out motion-reduce:transition-none [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:pointer-events-none [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:translate-y-3 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:grid-rows-[0fr] [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:opacity-0 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:grid-rows-[1fr] group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:grid-rows-[1fr] group-focus-within:opacity-100">
+      <div class="min-h-0 lg:overflow-hidden">
+        <div class="grid grid-cols-2 gap-2 pt-5 lg:px-1 lg:pb-1">
+          <a
+            href="tel:+94774166098"
+            class:list={[buttonClass, "bg-brand-gold hover:bg-[#ddb24b]"]}
+            aria-label={`Call ANP Movers about ${service.title}`}
+          >
+            Call Now{" "}
+            <span class="grid size-8 shrink-0 place-items-center rounded-full bg-white">
+              <Phone size={15} aria-hidden="true" />
+            </span>
+          </a>
+          <a
+            href="#request-quote"
+            class:list={[buttonClass, "bg-white hover:bg-[#f5f0e5]"]}
+          >
+            Get in Touch{" "}
+            <span class="grid size-8 shrink-0 place-items-center rounded-full bg-brand-gold">
+              <ArrowRight size={16} aria-hidden="true" />
+            </span>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </article>

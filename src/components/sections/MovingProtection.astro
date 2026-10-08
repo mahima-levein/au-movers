@@ -39,13 +39,14 @@ const desktopPositions = [
       </p>
     </div>
 
-    <div class="mt-12 grid gap-x-10 gap-y-10 md:grid-cols-2 md:gap-y-12 lg:mt-16 lg:grid-cols-[1fr_1.15fr_1fr] lg:gap-x-5 lg:gap-y-12 xl:gap-x-8">
+    <div class="mt-12 grid gap-x-10 gap-y-6 md:grid-cols-2 md:gap-y-12 lg:mt-16 lg:grid-cols-[1fr_1.15fr_1fr] lg:gap-x-5 lg:gap-y-12 xl:gap-x-8">
       {protectionFeatures.map((feature, index) => {
         const Icon = icons[feature.icon];
         return (
           <article
             class:list={[
               "group flex min-w-0 flex-col lg:py-2",
+              "max-md:rounded-2xl max-md:border max-md:border-dashed max-md:border-neutral-400/25 max-md:p-5",
               desktopPositions[index],
             ]}
             aria-labelledby={`protection-${feature.id}`}

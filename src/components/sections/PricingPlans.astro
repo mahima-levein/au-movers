@@ -1,13 +1,6 @@
 ---
 import { ArrowRight, Check } from "@lucide/astro";
 import { pricingPlans } from "../../data/pricing-plans";
-
-const customFeatures = [
-  "Residential Moving",
-  "Commercial Moving",
-  "Local Moving",
-  "Packing & Unpacking",
-];
 ---
 
 <section
@@ -28,9 +21,9 @@ const customFeatures = [
       </h2>
 
       <div
-        class="mx-auto mt-10 flex w-md max-w-full gap-1 rounded-2xl bg-[#f6f1ec] p-1.5 sm:rounded-full"
+        class="mx-auto mt-10 grid w-full max-w-3xl grid-cols-1 gap-1 sm:grid-cols-3 rounded-2xl bg-[#f6f1ec] p-1.5 sm:rounded-full"
         role="tablist"
-        aria-label="Packing options"
+        aria-label="Moving and packing plans"
       >
         {pricingPlans.map((plan, index) => (
           <button
@@ -136,44 +129,6 @@ const customFeatures = [
             </a>
           </article>
         ))}
-      </div>
-
-      <div class="mt-4 grid items-center gap-6 rounded-[18px] bg-[#142A51] px-6 py-7 text-white sm:px-8 md:grid-cols-[1.3fr_1fr] lg:grid-cols-[1.35fr_1.4fr_auto] lg:gap-8">
-        <div>
-          <h3 class="text-brand-gold text-xl font-semibold">
-            Need a Custom Plan
-          </h3>
-          <p class="mt-1 max-w-sm text-sm leading-6 text-white/70">
-            Tell us what you need for your move and we can discuss a plan that
-            fits.
-          </p>
-        </div>
-        <ul class="grid gap-x-5 gap-y-2 text-sm font-medium sm:grid-cols-2">
-          {customFeatures.map((feature) => (
-            <li class="flex items-start gap-2">
-              <span
-                class="mt-0.5 grid size-4 shrink-0 place-items-center rounded-full border border-white text-white"
-                aria-hidden="true"
-              >
-                <Check size={11} strokeWidth={3} />
-              </span>
-              <span>{feature}</span>
-            </li>
-          ))}
-        </ul>
-        <a
-          href="tel:+94774166098"
-          class="group/contact flex min-h-[46px] w-fit items-center gap-3 rounded-full bg-[#f0c653] py-1 pr-1 pl-5 text-sm font-semibold text-[#203b3b] transition-transform duration-300 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 md:col-span-2 lg:col-span-1"
-        >
-          Contact Us
-          <span class="grid size-9 place-items-center rounded-full bg-white">
-            <ArrowRight
-              size={17}
-              class="transition-transform duration-300 group-hover/contact:translate-x-0.5"
-              aria-hidden="true"
-            />
-          </span>
-        </a>
       </div>
     </div>
   </div>

@@ -1,4 +1,5 @@
 ---
+/* Original hero dependencies preserved with the commented markup below.
 import { ArrowRight, Play } from "@lucide/astro";
 import { Image } from "astro:assets";
 import image1 from "../../assets/h-1.jpg";
@@ -8,7 +9,9 @@ import image4 from "../../assets/h-4.jpg";
 import image5 from "../../assets/h-5.jpg";
 import image6 from "../../assets/h-6.jpg";
 const capsuleImages = [image1, image2, image3, image4, image5, image6];
+*/
 import HeroGallery from "./HeroGallery.astro";
+import HeroOffer from "../ui/HeroOffer.astro";
 import TextMarquee from "../../components/ui/TextMarquee.astro";
 ---
 
@@ -18,6 +21,7 @@ import TextMarquee from "../../components/ui/TextMarquee.astro";
   aria-labelledby="hero-heading"
 >
   <div class="relative size-full">
+    {/* Original hero heading, capsule, copy, and buttons preserved for reuse.
     <div class="absolute top-[55%] left-[max(6vw,calc((100vw-1536px)/2))] z-2 w-[min(760px,55vw)] -translate-y-1/2 max-[1250px]:left-[6vw] max-[1250px]:w-[58vw] max-[850px]:top-[40%] max-[850px]:w-[75vw] max-[620px]:top-[37%] max-[620px]:w-[88vw]">
       <h1
         id="hero-heading"
@@ -89,12 +93,18 @@ import TextMarquee from "../../components/ui/TextMarquee.astro";
         </button>
       </div>
     </div>
+    */}
+    <div class="absolute top-[54%] left-[max(5vw,calc((100vw-1536px)/2))] z-2 w-[min(660px,53vw)] -translate-y-1/2 max-[1250px]:left-[4vw] max-[1250px]:w-[56vw] max-[850px]:top-[38%] max-[850px]:w-[65vw] max-[620px]:top-[36%] max-[620px]:left-[5%] max-[620px]:w-[90%]">
+      <HeroOffer />
+    </div>
     <HeroGallery />
   </div>
 </section>
 <TextMarquee />
 
+{/* Original capsule animation preserved while the capsule is inactive.
 <script>
   import { initHeroCapsule } from "../../scripts/animations/hero-capsule";
   initHeroCapsule();
 </script>
+*/}

@@ -1,0 +1,58 @@
+---
+// Keep the offer as live text so it stays sharp and readable at every screen size.
+const fragments = [
+  { position: "top-[39%] -left-[5%] h-[11%] w-[9%] -rotate-12", gold: false },
+  { position: "top-[48%] -right-[5%] h-[8%] w-[8%] rotate-45", gold: true },
+];
+---
+
+<div class="relative isolate @container mx-auto w-full max-w-[650px] px-[4%] py-[5%]">
+  <span
+    class="pointer-events-none absolute top-0 left-[35%] -z-1 h-[21%] w-[47%] rotate-12 bg-linear-to-br from-[#355581] to-brand-ink [clip-path:polygon(0_0,100%_60%,12%_100%)]"
+    aria-hidden="true"
+  ></span>
+  <h1 id="hero-heading" class="relative m-0 text-center font-bold uppercase">
+    <span class="relative z-1 mx-auto block w-[84%] -rotate-3 bg-linear-to-br from-[#e0b653] via-brand-gold to-[#b88a2d] px-3 py-[2.5%] text-[clamp(0.9rem,4.4cqw,1.6rem)] leading-tight font-semibold tracking-[0.03em] text-brand-ink shadow-[0_8px_16px_rgb(20_42_81_/_14%)]">
+      Found a Lower Price?
+    </span>
+    <span class="relative z-2 -mt-1 block -rotate-3 bg-linear-to-br from-[#294570] via-brand-ink to-[#0b1c39] px-[5%] py-[6%] text-[clamp(2rem,12.5cqw,5rem)] leading-[0.95] tracking-[-0.035em] text-white shadow-[0_14px_24px_rgb(20_42_81_/_22%)] [text-shadow:0_2px_2px_rgb(0_0_0_/_20%)]">
+      <span class="block">We’ll</span>
+      <span class="block">Match It!</span>
+    </span>
+  </h1>
+
+  <p class="relative z-3 -mt-1 ml-[9%] w-[91%] -rotate-3 bg-linear-to-br from-[#e0b653] via-brand-gold to-[#b88a2d] px-3 py-[3%] text-center text-[clamp(1rem,5.5cqw,2rem)] leading-tight font-bold tracking-[-0.02em] text-brand-ink uppercase shadow-[0_10px_18px_rgb(20_42_81_/_18%)]">
+    No Hidden Fees!
+  </p>
+  <p class="relative z-2 mx-auto -mt-1 w-[60%] -rotate-9 bg-linear-to-br from-[#294570] via-brand-ink to-[#0b1c39] px-4 py-[3%] text-center text-[clamp(2.5rem,15cqw,5.5rem)] leading-none font-bold tracking-[-0.04em] text-white uppercase shadow-[0_12px_20px_rgb(20_42_81_/_18%)] [text-shadow:0_2px_2px_rgb(0_0_0_/_20%)]">
+    Ever
+  </p>
+  <span
+    class="pointer-events-none absolute bottom-0 left-[25%] -z-1 h-[16%] w-[49%] bg-brand-gold [clip-path:polygon(0_0,72%_0,100%_100%)]"
+    aria-hidden="true"
+  ></span>
+  {fragments.map(({ position, gold }) => (
+    <span
+      class:list={[
+        "pointer-events-none absolute -z-1 drop-shadow-[3px_5px_3px_rgb(20_42_81_/_15%)]",
+        position,
+      ]}
+      aria-hidden="true"
+    >
+      <span
+        class:list={[
+          "absolute inset-0 [clip-path:polygon(15%_0,100%_80%,0_100%)]",
+          gold
+            ? "bg-linear-to-br from-[#e0b653] to-brand-gold"
+            : "bg-linear-to-br from-[#355581] to-brand-ink",
+        ]}
+      ></span>
+      <span
+        class:list={[
+          "absolute inset-0 [clip-path:polygon(15%_0,45%_68%,0_100%)]",
+          gold ? "bg-[#987021]" : "bg-[#0b1c39]",
+        ]}
+      ></span>
+    </span>
+  ))}
+</div>
