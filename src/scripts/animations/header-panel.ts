@@ -14,6 +14,8 @@ export function initHeaderPanel() {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   let isOpen = false;
   let lastFocus: HTMLElement | null = null;
+  let previousOverflow = "";
+  let pendingNavigation: { target: HTMLElement; hash: string } | null = null;
 
   const timeline = gsap.timeline({
     paused: true,
@@ -42,13 +44,39 @@ export function initHeaderPanel() {
 
   function finishClose() {
     root!.hidden = true;
-    document.body.style.overflow = "";
-    lastFocus?.focus();
+    document.body.style.overflow = previousOverflow;
+    const navigation = pendingNavigation;
+    pendingNavigation = null;
+    if (navigation) {
+      // Navigate only after the drawer has closed and the page is unlocked.
+      requestAnimationFrame(() => {
+        const { target, hash } = navigation;
+        if (!target.hasAttribute("tabindex")) {
+          target.setAttribute("tabindex", "-1");
+          target.addEventListener(
+            "blur",
+            () => target.removeAttribute("tabindex"),
+            { once: true },
+          );
+        }
+        target.focus({ preventScroll: true });
+        if (window.location.hash !== hash)
+          window.history.pushState(null, "", hash);
+        target.scrollIntoView({
+          behavior: reducedMotion.matches ? "instant" : "smooth",
+          block: "start",
+        });
+      });
+    } else {
+      lastFocus?.focus({ preventScroll: true });
+    }
   }
 
   function open() {
     if (isOpen) return;
     isOpen = true;
+    pendingNavigation = null;
+    previousOverflow = document.body.style.overflow;
     lastFocus = document.activeElement as HTMLElement;
     root!.hidden = false;
     trigger!.setAttribute("aria-expanded", "true");
@@ -58,14 +86,14 @@ export function initHeaderPanel() {
     } else {
       timeline.play(0);
     }
-    closeButton.focus();
+    closeButton.focus({ preventScroll: true });
   }
 
   function close() {
     if (!isOpen) return;
     isOpen = false;
     trigger!.setAttribute("aria-expanded", "false");
-    if (reducedMotion.matches) {
+    if (reducedMotion.matches || timeline.time() === 0) {
       timeline.progress(0).pause();
       finishClose();
     } else {
@@ -76,7 +104,28 @@ export function initHeaderPanel() {
   trigger.addEventListener("click", open);
   closeButton.addEventListener("click", close);
   backdrop.addEventListener("click", close);
-  links.forEach((link) => link.addEventListener("click", close));
+  links.forEach((link) =>
+    link.addEventListener("click", (event) => {
+      const hash = link.getAttribute("href");
+      if (
+        hash?.startsWith("#") &&
+        hash.length > 1 &&
+        !event.ctrlKey &&
+        !event.metaKey &&
+        !event.shiftKey &&
+        !event.altKey
+      ) {
+        const target = document.getElementById(
+          decodeURIComponent(hash.slice(1)),
+        );
+        if (target) {
+          event.preventDefault();
+          pendingNavigation = { target, hash };
+        }
+      }
+      close();
+    }),
+  );
   document.addEventListener("keydown", (event) => {
     if (!isOpen) return;
     if (event.key === "Escape") close();
