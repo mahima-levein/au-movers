@@ -1,6 +1,5 @@
 ---
-import { ArrowUp } from "@lucide/astro";
-
+import { ArrowRight, ArrowUp, MessageCircle, Phone, Send } from "@lucide/astro";
 const companyLinks = [
   ["About Us", "#who-we-are"],
   ["Our Services", "#services"],
@@ -16,116 +15,187 @@ const services = [
   "Packing & Unpacking",
 ];
 const footerLink =
-  "text-sm leading-[1.8] text-[#b8b8b5] transition-colors duration-200 hover:text-[#e5c47b] focus-visible:outline-2 focus-visible:outline-[#e5c47b] focus-visible:outline-offset-[3px]";
+  "text-sm leading-6 text-white/80 transition-colors duration-200 hover:text-brand-gold focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4";
+const whatsappUrl = `https://wa.me/94774166098?text=${encodeURIComponent("Hi ANP Movers! I'm planning a move and would like a quote. Could you help me with availability and pricing?")}`;
+const contactItems = [
+  {
+    label: "Send your enquiry",
+    text: "Get a moving quote",
+    href: "#request-quote",
+    icon: Send,
+  },
+  {
+    label: "Message our team",
+    text: "WhatsApp",
+    href: whatsappUrl,
+    icon: MessageCircle,
+  },
+  {
+    label: "Talk to us",
+    text: "+94 77 416 6098",
+    href: "tel:+94774166098",
+    icon: Phone,
+  },
+];
 ---
 
-<footer
-  id="site-footer"
-  class="pb-3 text-[#f7f7f3]"
->
-  <div class="relative mx-[clamp(12px,1vw,18px)] min-h-[360px] overflow-hidden rounded-[17px] bg-[#1c1c1b] px-[clamp(25px,5vw,70px)] pt-[clamp(40px,5vw,70px)] pb-[100px] max-[600px]:px-[27px] max-[600px]:pt-[42px] max-[600px]:pb-[90px]">
-    <span
-      class="pointer-events-none absolute bottom-[-195px] left-[2%] size-[260px] rounded-full border border-white/8"
+<footer id="site-footer" class="pb-3 text-white">
+  <div class="relative isolate mx-[clamp(12px,1vw,18px)] overflow-hidden rounded-[28px] bg-[#080c1b] px-5 pt-12 pb-40 sm:px-8 sm:pt-16 sm:pb-44 lg:px-12 lg:pt-24 lg:pb-48">
+    <div
+      class="pointer-events-none absolute inset-0 -z-1 bg-[radial-gradient(ellipse_at_0%_0%,var(--color-brand-ink)_0%,transparent_58%),radial-gradient(ellipse_at_100%_90%,var(--color-brand-gold)_0%,transparent_48%)]"
       aria-hidden="true"
-    ></span>
-    <span
-      class="pointer-events-none absolute right-[2%] bottom-[-190px] size-[260px] rounded-full border border-white/8"
-      aria-hidden="true"
-    ></span>
-    <div class="relative z-1 mx-auto grid max-w-7xl grid-cols-[1.45fr_0.65fr_0.85fr_1.15fr] gap-[clamp(24px,4vw,70px)] max-[950px]:grid-cols-2 max-[950px]:gap-10 max-[600px]:grid-cols-[0.85fr_1.15fr] max-[600px]:gap-x-5 max-[600px]:gap-y-[34px]">
-      <div class="min-w-0 max-[600px]:col-span-2">
-        <a href="/" aria-label="ANP Movers home" class="mb-5 inline-flex rounded-lg p-3 focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4">
-<img src="/anp-logo.png" alt="ANP Movers" width="1030" height="968" class="h-auto w-28 object-contain" loading="lazy" />
-</a>
-        <p class="mb-[18px] max-w-60 text-sm leading-[1.8] text-[#b8b8b5]">
+    ></div>
+    <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_2.2fr] lg:gap-12 xl:gap-16">
+      <div class="">
+        <a
+          href="/"
+          aria-label="ANP Movers home"
+          class="inline-flex rounded-lg focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4"
+        >
+          <img
+            src="/anp-logo.png"
+            alt="ANP Movers"
+            width="1030"
+            height="968"
+            class="h-auto w-28 object-contain"
+            loading="lazy"
+          />
+        </a>
+        <p class="mt-5 max-w-sm text-sm leading-7 text-white/80">
           Explore our moving services and get in touch with our team.
         </p>
-        <a
-          class="text-sm font-bold text-white transition-colors hover:text-[#e5c47b] focus-visible:outline-2 focus-visible:outline-[#e5c47b] focus-visible:outline-offset-[3px]"
-          href="tel:+0255505550"
-        >
-          (+2) 5550 5550
-        </a>
-      </div>
-      <div class="min-w-0">
-        <h2 class="text-brand-gold mb-5 text-base leading-[1.2] font-bold tracking-[-0.03em] max-[600px]:mb-3.5">
-          Company
-        </h2>
-        <ul class="list-none space-y-[6px] p-0">
-          {companyLinks.map(([label, href]) => (
-            <li>
-              <a class={footerLink} href={href}>
-                {label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div class="min-w-0">
-        <h2 class="text-brand-gold mb-5 text-base leading-[1.2] font-bold tracking-[-0.03em] max-[600px]:mb-3.5">
-          Service
-        </h2>
-        <ul class="list-none space-y-[6px] p-0">
-          {services.map((label) => (
-            <li>
-              <a class={footerLink} href="#services">
-                {label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div class="min-w-0 max-[600px]:col-span-2">
-        <h2 class="text-brand-gold mb-5 text-base leading-[1.2] font-bold tracking-[-0.03em] max-[600px]:mb-3.5">
-          Newsletter
-        </h2>
-        <p class="mb-[9px] text-sm leading-[1.8] text-[#b8b8b5]">
-          Updates from ANP MOVERS.
-        </p>
-        <form
-          id="newsletter-form"
-          class="flex max-w-[300px] items-center rounded-full border border-[#454544] bg-[#343434] p-1 focus-within:outline-2 focus-within:outline-[#e5c47b] focus-within:outline-offset-2"
-        >
-          <label class="sr-only" for="newsletter-email">
-            Your email address
-          </label>
-          <input
-            id="newsletter-email"
-            class="w-full min-w-0 border-0 bg-transparent px-[9px] py-[6px] text-sm text-white outline-0 placeholder:text-[#e0e0db]"
-            type="email"
-            name="email"
-            placeholder="Your email address"
-            required
-          />
-          <button
-            class="min-h-[26px] cursor-pointer rounded-full border-0 bg-[#e8c983] px-3 text-[10px] text-[#282318] transition-colors duration-200 hover:bg-[#f2dba5] focus-visible:outline-2 focus-visible:outline-[#e5c47b] focus-visible:outline-offset-[3px]"
-            type="submit"
+        <div class="mt-6 space-y-3 border-t border-white/15 pt-5">
+          <a
+            href="#request-quote"
+            class="flex min-h-11 items-center justify-between gap-3 text-sm font-semibold transition-colors hover:text-brand-gold focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4"
           >
-            Subscribe
-          </button>
-        </form>
-        <p
-          class="newsletter-status mt-1.5 text-[11px] text-[#e8c983] empty:hidden"
-          role="status"
-          aria-live="polite"
-        ></p>
-        <p class="mt-[9px] text-[11px] leading-[1.8] text-[#f7f7f3]">
-          I agree to the privacy policy.
-        </p>
+            Plan your move <ArrowRight size={18} aria-hidden="true" />
+          </a>
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex min-h-11 items-center gap-3 text-sm text-white/80 transition-colors hover:text-brand-gold focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4"
+          >
+            <span class="grid size-9 shrink-0 place-items-center rounded-full bg-white text-brand-ink">
+              <MessageCircle size={18} aria-hidden="true" />
+            </span>
+            Chat on WhatsApp <span class="sr-only">(opens in a new tab)</span>
+          </a>
+        </div>
+      </div>
+      <div class="min-w-0">
+        <div class="grid grid-cols-[0.85fr_1.15fr] gap-x-5 gap-y-10 sm:gap-x-8 md:grid-cols-[0.7fr_0.95fr_1.5fr] lg:gap-x-7 xl:gap-x-10">
+          <nav aria-labelledby="footer-company-heading" class="min-w-0">
+            <h2
+              id="footer-company-heading"
+              class="mb-5 text-lg font-semibold tracking-tight"
+            >
+              Company
+            </h2>
+            <ul class="space-y-3">
+              {companyLinks.map(([label, href]) => (
+                <li>
+                  <a class={footerLink} href={href}>
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <nav aria-labelledby="footer-services-heading" class="min-w-0">
+            <h2
+              id="footer-services-heading"
+              class="mb-5 text-lg font-semibold tracking-tight"
+            >
+              Our Services
+            </h2>
+            <ul class="space-y-3">
+              {services.map((label) => (
+                <li>
+                  <a class={footerLink} href="#services">
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <div class="col-span-2 min-w-0 md:col-span-1">
+            <h2 class="mb-5 text-lg font-semibold tracking-tight">
+              Newsletter
+            </h2>
+            <p class="max-w-sm text-sm leading-7 text-white/80">
+              Updates from ANP MOVERS, straight to your inbox.
+            </p>
+            <form
+              id="newsletter-form"
+              class="mt-6 flex min-h-12 items-center gap-2 rounded-lg bg-white p-1.5 focus-within:outline-2 focus-within:outline-brand-gold focus-within:outline-offset-4"
+            >
+              <label class="sr-only" for="newsletter-email">
+                Your email address
+              </label>
+              <input
+                id="newsletter-email"
+                class="w-full min-w-0 bg-transparent px-3 py-2 text-sm text-brand-ink outline-none placeholder:text-brand-ink/60"
+                type="email"
+                name="email"
+                placeholder="Your email address"
+                required
+              />
+              <button
+                class="grid size-9 shrink-0 cursor-pointer place-items-center rounded-full bg-brand-gold text-brand-ink transition-colors hover:bg-brand-ink hover:text-white focus-visible:outline-2 focus-visible:outline-brand-ink focus-visible:outline-offset-2"
+                type="submit"
+                aria-label="Subscribe to the newsletter"
+              >
+                <Send size={18} aria-hidden="true" />
+              </button>
+            </form>
+            <p
+              class="newsletter-status mt-3 text-xs leading-5 text-white/80 empty:hidden"
+              role="status"
+              aria-live="polite"
+            ></p>
+            <p class="mt-3 text-xs leading-5 text-white/60">
+              I agree to the privacy policy.
+            </p>
+          </div>
+        </div>
+        <div class="mt-10 grid gap-6 border-t border-white/10 pt-7 sm:grid-cols-3 lg:mt-12">
+          {contactItems.map(({ label, text, href, icon: Icon }) => (
+            <a
+              href={href}
+              target={href === whatsappUrl ? "_blank" : undefined}
+              rel={href === whatsappUrl ? "noopener noreferrer" : undefined}
+              class="group flex min-w-0 items-center gap-3 rounded-lg focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4"
+            >
+              <span class="grid size-11 shrink-0 place-items-center rounded-full bg-brand-gold text-brand-ink transition-transform group-hover:-translate-y-0.5 motion-reduce:transform-none">
+                <Icon size={20} aria-hidden="true" />
+              </span>
+              <span class="min-w-0">
+                <span class="block text-xs text-white/65">{label}</span>
+                <span class="mt-1 block text-sm font-semibold">
+                  {text}
+                  {href === whatsappUrl && (
+                    <span class="sr-only"> (opens in a new tab)</span>
+                  )}
+                </span>
+              </span>
+            </a>
+          ))}
+        </div>
       </div>
     </div>
-    <div class="relative z-1 mx-auto mt-[45px] mb-[18px] h-px max-w-[1050px] bg-white/10 max-[600px]:mt-[38px]"></div>
-    <p class="relative z-1 text-center text-sm text-[#c6c6c4]">
-      © 2026 ANP MOVERS. All Rights Reserved.
-    </p>
     <span
-      class="pointer-events-none absolute bottom-[-75px] left-1/2 -translate-x-1/2 whitespace-nowrap text-[clamp(120px,18vw,250px)] leading-none font-extrabold tracking-[-0.08em] text-[#363636] max-[600px]:bottom-[-26px] max-[600px]:text-[20vw]"
+      class="pointer-events-none absolute bottom-[-75px] left-1/2 -translate-x-1/2 whitespace-nowrap text-[clamp(120px,18vw,250px)] leading-none font-extrabold tracking-[-0.08em] text-[#363636] max-[600px]:bottom-[72px] max-[600px]:text-[20vw]"
       aria-hidden="true"
     >
       ANP MOVERS
     </span>
+    <p class="absolute inset-x-6 bottom-0 z-1 mx-auto max-w-[600px] rounded-t-[24px] bg-[#faf6f2] px-5 py-5 text-center text-xs leading-6 text-brand-ink sm:inset-x-12 sm:text-sm">
+      © 2026 ANP MOVERS. All Rights Reserved.
+    </p>
     <button
-      class="back-to-top absolute right-4 bottom-4 z-2 grid size-[34px] cursor-pointer place-items-center rounded-full border-0 bg-[#f3e4bd] text-[#887347] transition-all duration-200 hover:-translate-y-[3px] hover:bg-[#e5c47b] focus-visible:outline-2 focus-visible:outline-[#e5c47b] focus-visible:outline-offset-[3px]"
+      class="back-to-top absolute right-4 bottom-20 z-2 grid size-10 cursor-pointer place-items-center rounded-full bg-brand-gold text-brand-ink transition-transform hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-4 motion-reduce:transform-none sm:bottom-5"
       type="button"
       aria-label="Back to top"
     >
@@ -144,7 +214,6 @@ const footerLink =
       );
       if (status) status.textContent = "Subscriptions are not available yet.";
     });
-
   document
     .querySelector<HTMLButtonElement>("#site-footer .back-to-top")
     ?.addEventListener("click", () => {

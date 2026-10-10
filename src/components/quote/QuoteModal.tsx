@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { DayPicker } from "@daypicker/react";
 import "@daypicker/react/style.css";
 import {
@@ -56,8 +57,14 @@ function displayValue(value: string | null) {
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
-export default function QuoteModal() {
+export default function QuoteModal({
+  mobileInlineTarget,
+}: {
+  mobileInlineTarget?: string;
+}) {
   const [open, setOpen] = useState(false);
+  const [inlineHost, setInlineHost] = useState<HTMLElement | null>(null);
+  const inlineHostRef = useRef<HTMLElement | null>(null);
   const [session, setSession] = useState<QuoteSession>(
     createInitialQuoteSession,
   );
@@ -70,12 +77,34 @@ export default function QuoteModal() {
 
   useEffect(() => {
     setSession(loadQuoteSession());
-    const resize = () => setMonths(window.innerWidth < 720 ? 1 : 2);
+    const resize = () => {
+      setMonths(window.innerWidth < 720 ? 1 : 2);
+      const host =
+        mobileInlineTarget && window.matchMedia("(max-width: 620px)").matches
+          ? document.getElementById(mobileInlineTarget)
+          : null;
+      inlineHostRef.current = host;
+      setInlineHost(host);
+      if (host) setOpen(false);
+    };
+    const reveal = () => {
+      if (inlineHostRef.current) {
+        inlineHostRef.current.scrollIntoView({
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+            .matches
+            ? "instant"
+            : "smooth",
+          block: "start",
+        });
+      } else {
+        setOpen(true);
+      }
+    };
     const show = (event: Event) => {
       triggerRef.current =
         (event as CustomEvent).detail?.trigger ?? document.activeElement;
       setSession(loadQuoteSession());
-      setOpen(true);
+      reveal();
     };
     const click = (event: MouseEvent) => {
       const trigger = (event.target as HTMLElement).closest<HTMLElement>(
@@ -85,7 +114,7 @@ export default function QuoteModal() {
       event.preventDefault();
       triggerRef.current = trigger;
       setSession(loadQuoteSession());
-      setOpen(true);
+      reveal();
     };
     setReady(true);
     resize();
@@ -97,10 +126,10 @@ export default function QuoteModal() {
       window.removeEventListener("anp:open-quote", show);
       document.removeEventListener("click", click);
     };
-  }, []);
+  }, [mobileInlineTarget]);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open || inlineHost) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     requestAnimationFrame(() => dialogRef.current?.focus());
@@ -129,7 +158,7 @@ export default function QuoteModal() {
       document.body.style.overflow = previousOverflow;
       document.removeEventListener("keydown", keydown);
     };
-  }, [open]);
+  }, [open, inlineHost]);
 
   useEffect(() => {
     if (ready && typeof sessionStorage !== "undefined")
@@ -224,7 +253,7 @@ export default function QuoteModal() {
     setSubmitting(false);
   }
 
-  if (!open) return null;
+  if (!open && !inlineHost) return null;
 
   const data = session.data;
   const selectedDate = data.moveDate
@@ -278,20 +307,36 @@ export default function QuoteModal() {
     </div>
   );
 
-  return (
+  const content = (
     <div
-      className="fixed inset-0 z-[100] grid place-items-center bg-black/55 p-2 backdrop-blur-sm sm:p-4"
-      onMouseDown={(event) => event.target === event.currentTarget && close()}
+      className={
+        inlineHost
+          ? "w-full min-w-0"
+          : "fixed inset-0 z-[100] grid place-items-center bg-black/55 p-2 backdrop-blur-sm sm:p-4"
+      }
+      onMouseDown={(event) =>
+        !inlineHost && event.target === event.currentTarget && close()
+      }
     >
       <div
         ref={dialogRef}
         tabIndex={-1}
-        role="dialog"
-        aria-modal="true"
+        role={inlineHost ? "region" : "dialog"}
+        aria-modal={inlineHost ? undefined : true}
         aria-labelledby="quote-modal-title"
-        className="max-h-[calc(100dvh-16px)] w-full max-w-[1180px] overflow-y-auto rounded-2xl bg-[#faf8f5] shadow-2xl outline-none sm:max-h-[92dvh] sm:rounded-[28px]"
+        className={
+          inlineHost
+            ? "w-full min-w-0 overflow-hidden rounded-3xl border border-brand-ink/10 bg-white shadow-[0_12px_40px_rgb(20_42_81_/_6%)] outline-none"
+            : "max-h-[calc(100dvh-16px)] w-full max-w-[1180px] overflow-y-auto rounded-2xl bg-[#faf8f5] shadow-2xl outline-none sm:max-h-[92dvh] sm:rounded-[28px]"
+        }
       >
-        <header className="sticky top-0 z-20 flex items-center justify-between border-b border-neutral-200 bg-[#faf8f5]/95 px-4 py-3 backdrop-blur sm:px-7">
+        <header
+          className={
+            inlineHost
+              ? "flex items-center justify-between border-b border-brand-ink/10 bg-white px-5 py-5"
+              : "sticky top-0 z-20 flex items-center justify-between border-b border-neutral-200 bg-[#faf8f5]/95 px-4 py-3 backdrop-blur sm:px-7"
+          }
+        >
           <div>
             <span className="text-xs font-semibold tracking-widest text-[#f0b92f] uppercase">
               ANP Movers
@@ -303,14 +348,16 @@ export default function QuoteModal() {
               Get Your Free Moving Quote
             </h2>
           </div>
-          <button
-            type="button"
-            onClick={close}
-            aria-label="Close quote modal"
-            className="grid size-10 place-items-center rounded-full bg-white text-[#203b3b] hover:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-[#f0c653]"
-          >
-            <X size={20} />
-          </button>
+          {!inlineHost && (
+            <button
+              type="button"
+              onClick={close}
+              aria-label="Close quote modal"
+              className="grid size-10 place-items-center rounded-full bg-white text-[#203b3b] hover:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-[#f0c653]"
+            >
+              <X size={20} />
+            </button>
+          )}
         </header>
 
         {session.completed ? (
@@ -326,12 +373,14 @@ export default function QuoteModal() {
                 Your quote details are ready in this demo.
               </p>
               <div className="mt-7 flex flex-wrap justify-center gap-3">
-                <button
-                  onClick={close}
-                  className="rounded-full border border-neutral-300 px-6 py-3 font-semibold text-[#203b3b]"
-                >
-                  Close
-                </button>
+                {!inlineHost && (
+                  <button
+                    onClick={close}
+                    className="rounded-full border border-neutral-300 px-6 py-3 font-semibold text-[#203b3b]"
+                  >
+                    Close
+                  </button>
+                )}
                 <button
                   onClick={reset}
                   className="rounded-full bg-[#f0c653] px-6 py-3 font-semibold text-[#203b3b]"
@@ -387,7 +436,7 @@ export default function QuoteModal() {
               </ol>
             </nav>
 
-            <main className="mx-auto mt-5 max-w-4xl rounded-3xl bg-white p-5 shadow-sm sm:p-8">
+            <div className="mx-auto mt-5 max-w-4xl rounded-3xl bg-white p-5 shadow-sm sm:p-8">
               {session.currentStep === 0 && (
                 <>
                   <h3 className="text-2xl font-semibold text-brand-ink">
@@ -563,14 +612,17 @@ export default function QuoteModal() {
                   </button>
                 </>
               )}
-            </main>
+            </div>
 
             <section
               className="mx-auto mt-5 max-w-7xl rounded-3xl bg-[#142A51] p-5 text-white sm:p-7 hidden lg:block"
               aria-labelledby="move-summary-heading"
             >
               <div className="flex items-center justify-between">
-                <h3 id="move-summary-heading" className="text-brand-gold text-lg font-semibold">
+                <h3
+                  id="move-summary-heading"
+                  className="text-brand-gold text-lg font-semibold"
+                >
                   Move Summary
                 </h3>
                 <span className="font-semibold text-[#f0c653]">
@@ -623,4 +675,5 @@ export default function QuoteModal() {
       </div>
     </div>
   );
+  return inlineHost ? createPortal(content, inlineHost) : content;
 }

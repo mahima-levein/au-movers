@@ -1,110 +1,89 @@
 ---
-/* Original hero dependencies preserved with the commented markup below.
-import { ArrowRight, Play } from "@lucide/astro";
+import { ArrowRight } from "@lucide/astro";
 import { Image } from "astro:assets";
-import image1 from "../../assets/h-1.jpg";
-import image2 from "../../assets/h-2.jpg";
-import image3 from "../../assets/h-3.jpg";
-import image4 from "../../assets/h-4.jpg";
-import image5 from "../../assets/h-5.jpg";
-import image6 from "../../assets/h-6.jpg";
-const capsuleImages = [image1, image2, image3, image4, image5, image6];
-*/
+import truckImage from "../../assets/truck.png";
 import HeroGallery from "./HeroGallery.astro";
-import HeroOffer from "../ui/HeroOffer.astro";
-import TextMarquee from "../../components/ui/TextMarquee.astro";
+import TextMarquee from "../ui/TextMarquee.astro";
 ---
 
 <section
   id="home-hero"
-  class="relative mx-[clamp(12px,1vw,18px)] mt-3 h-dvh overflow-hidden rounded-t-[28px] bg-[#faf6f2] text-[#203b3b] max-[620px]:h-svh"
+  class="relative mx-[clamp(12px,1vw,18px)] mt-3 h-dvh min-h-[620px] overflow-hidden rounded-t-[28px] bg-[#faf6f2] text-brand-ink max-[620px]:h-auto max-[620px]:min-h-0"
   aria-labelledby="hero-heading"
 >
-  <div class="relative size-full">
-    {/* Original hero heading, capsule, copy, and buttons preserved for reuse.
-    <div class="absolute top-[55%] left-[max(6vw,calc((100vw-1536px)/2))] z-2 w-[min(760px,55vw)] -translate-y-1/2 max-[1250px]:left-[6vw] max-[1250px]:w-[58vw] max-[850px]:top-[40%] max-[850px]:w-[75vw] max-[620px]:top-[37%] max-[620px]:w-[88vw]">
-      <h1
-        id="hero-heading"
-        class="text-brand-ink m-0 text-[clamp(56px,5vw,88px)] leading-[0.99] font-bold tracking-[-0.065em] max-[1250px]:text-[clamp(48px,5.1vw,70px)] max-[850px]:text-[clamp(46px,6.5vw,66px)] max-[620px]:text-[clamp(34px,8vw,51px)]"
-      >
-        <span class="block whitespace-nowrap max-[620px]:whitespace-normal">
-          Moving your life
-        </span>
-        <span class="block whitespace-nowrap max-[620px]:whitespace-normal">
-          with care precision
-        </span>
-        <span class="flex items-center gap-[0.18em] whitespace-nowrap max-[620px]:whitespace-normal">
-          <span>and</span>
-          <button
-            type="button"
-            data-hero-capsule
-            aria-label="Pause rotating moving images"
-            aria-pressed="false"
-            title="Pause or resume images"
-            class="relative inline-block h-[0.65em] w-[1.75em] flex-none translate-y-[0.04em] cursor-pointer overflow-hidden rounded-full focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4"
-          >
-            {capsuleImages.map((image, index) => (
-              <Image
-                src={image}
-                alt=""
-                width={320}
-                loading="eager"
-                class:list={[
-                  "absolute inset-0 size-full object-cover object-center",
-                  index === 0 ? "opacity-100" : "opacity-0",
-                ]}
-                data-capsule-image
-              />
-            ))}
-          </button>
-          <span>trust</span>
-        </span>
-      </h1>
-      <p class="mt-[30px] max-w-[560px] text-[clamp(13px,1vw,16px)] leading-[1.75] text-[#858b8d] max-[850px]:max-w-[490px] max-[620px]:mt-5 max-[620px]:text-xs max-[620px]:leading-[1.6]">
-        Creating a compelling brand identity and marketing strategy for a moving
-        company requires balancing trust reliability and professionalism.
+  <div class="relative size-full max-[620px]:h-auto">
+    <div class="absolute top-[55%] left-[max(6vw,calc((100vw-1536px)/2))] z-2 w-[min(760px,55vw)] -translate-y-1/2 max-[1250px]:left-[6vw] max-[1250px]:w-[58vw] max-[850px]:top-[40%] max-[850px]:w-[75vw] max-[620px]:relative max-[620px]:top-auto max-[620px]:left-auto max-[620px]:flex max-[620px]:min-h-[min(650px,90svh)] max-[620px]:w-full max-[620px]:translate-y-0 max-[620px]:flex-col max-[620px]:justify-center max-[620px]:px-5 max-[620px]:pt-32 max-[620px]:pb-10">
+      <div class="max-[620px]:relative max-[620px]:flex max-[620px]:flex-col max-[620px]:items-center">
+        <h1
+          id="hero-heading"
+          class="relative z-2 text-[clamp(48px,4.5vw,78px)] leading-[1.05] font-semibold tracking-[-0.05em] max-[850px]:text-[clamp(42px,5vw,60px)] max-[620px]:text-center max-[620px]:text-[clamp(23px,6.4vw,38px)] max-[620px]:leading-[1.15] max-[620px]:tracking-[-0.035em]"
+        >
+          <span class="block font-extrabold">Found a Lower Price?</span>
+          <span class="mt-3 block text-brand-gold">We'll Match It!</span>
+        </h1>
+        <div
+          class="relative mt-7 w-full min-w-0 max-w-[420px] min-[621px]:hidden"
+          aria-hidden="true"
+        >
+          <span class="absolute inset-x-0 top-10 mx-auto h-44 w-52 rounded-full bg-brand-gold/8 [mask-image:radial-gradient(ellipse,black,transparent_70%)]"></span>
+          <div data-hero-truck class="relative mx-auto w-full pt-1">
+            <Image
+              src={truckImage}
+              alt="ANP Movers branded moving truck"
+              widths={[400, 600, 800]}
+              sizes="(max-width: 620px) min(420px, 85vw), 1px"
+              format="webp"
+              loading="eager"
+              class="block h-auto w-full drop-shadow-[0_12px_8px_rgb(20_42_81_/_10%)]"
+            />
+          </div>
+        </div>
+      </div>
+      <p class="mt-7 max-w-[540px] text-base leading-7 text-brand-ink/65 max-[620px]:hidden">
+        Tell us about your move and explore a packing plan that suits your needs
+        and budget. Found a lower price? We’ll match it, with no hidden fees.
       </p>
-      <div class="mt-[30px] flex flex-wrap items-center gap-[18px] max-[620px]:mt-5 max-[620px]:gap-3">
-        <button
-          type="button"
-          data-open-quote
-          class="inline-flex min-h-11 items-center gap-[13px] rounded-full bg-[#f0c653] py-1 pr-[5px] pl-5 text-[13px] font-semibold text-[#263735] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#e6b83b] focus-visible:outline-2 focus-visible:outline-[#a07825] focus-visible:outline-offset-[3px] max-[620px]:min-h-10 max-[620px]:pl-3.5 max-[620px]:text-[11px]"
+      <p
+        data-hero-fees
+        class="mt-3 text-xl font-semibold tracking-tight max-[620px]:mt-5 max-[620px]:text-center max-[620px]:text-lg"
+      >
+        No Hidden Fees!
+      </p>
+      <div class="mt-7 flex max-[620px]:mt-5 max-[620px]:justify-center">
+        <a
+          href="#pricing"
+          class="group inline-flex min-h-12 items-center gap-5 rounded-full bg-brand-gold py-1.5 pr-1.5 pl-6 text-sm font-semibold text-brand-ink shadow-sm transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-brand-ink focus-visible:outline-offset-4 motion-reduce:transform-none"
         >
-          Discover Services{" "}
-          <span class="grid size-[34px] place-items-center rounded-full bg-[#fffdf8] max-[620px]:size-[30px]">
-            <ArrowRight size={18} strokeWidth={1.7} aria-hidden="true" />
-          </span>
-        </button>
-        <button
-          class="inline-flex cursor-not-allowed items-center gap-[15px] border-0 bg-transparent p-0 text-[13px] font-semibold text-[#344d4e] max-[620px]:gap-2 max-[620px]:text-[11px]"
-          type="button"
-          disabled
-          title="Video coming soon"
-        >
-          <span class="grid size-11 place-items-center rounded-full bg-[#e9e5e1] max-[620px]:size-[38px]">
-            <Play
-              size={16}
-              fill="currentColor"
-              strokeWidth={1.3}
+          View Moving Plans
+          <span class="grid size-9 place-items-center rounded-full bg-white">
+            <ArrowRight
+              size={20}
+              strokeWidth={1.8}
+              class="transition-transform group-hover:translate-x-0.5 motion-reduce:transform-none"
               aria-hidden="true"
             />
           </span>
-          <span>Watch Video</span>
-        </button>
+        </a>
       </div>
     </div>
-    */}
-    <div class="absolute top-[54%] left-[max(5vw,calc((100vw-1536px)/2))] z-2 w-[min(660px,53vw)] -translate-y-1/2 max-[1250px]:left-[4vw] max-[1250px]:w-[56vw] max-[850px]:top-[38%] max-[850px]:w-[65vw] max-[620px]:top-[36%] max-[620px]:left-[5%] max-[620px]:w-[90%]">
-      <HeroOffer />
-    </div>
     <HeroGallery />
+    <div class="relative z-2 px-4 pb-8 min-[621px]:hidden">
+      <div id="hero-quote-slot" class="min-h-[440px] scroll-mt-28"></div>
+      <noscript>
+        <p class="mt-4 text-center text-sm">
+          Please enable JavaScript to use the moving quote form, or{" "}
+          <a href="tel:+94774166098" class="underline">
+            call our team
+          </a>
+          .
+        </p>
+      </noscript>
+    </div>
   </div>
 </section>
 <TextMarquee />
 
-{/* Original capsule animation preserved while the capsule is inactive.
 <script>
-  import { initHeroCapsule } from "../../scripts/animations/hero-capsule";
-  initHeroCapsule();
+  import { initHeroTruck } from "../../scripts/animations/hero-truck";
+  initHeroTruck();
 </script>
-*/}

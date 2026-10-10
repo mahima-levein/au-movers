@@ -21,7 +21,7 @@ export const pricingPlans: PricingPlan[] = [
     id: "basic-packing",
     name: "Standard Pack",
     subtitle: "Simple wrapping for your everyday moving needs",
-    price: "$110",
+    price: "$120",
     suffix: "AUD / visit",
     features: [
       { label: "Basic furniture wrapping", available: true },
@@ -36,10 +36,10 @@ export const pricingPlans: PricingPlan[] = [
     id: "black-shrink-wrap-packing",
     name: "Careful Handling & Packing",
     subtitle: "Thoughtful packing and careful handling for your belongings",
-    price: "$120",
+    price: "$130",
     suffix: "AUD / visit",
     featured: true,
-    badge: "Extra Care",
+    badge: "Recommended",
     features: [
       { label: "Black shrink wrap covering", available: true },
       { label: "Furniture surfaces covered", available: true },
