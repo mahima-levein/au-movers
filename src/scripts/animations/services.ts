@@ -51,10 +51,11 @@ export function initServices() {
     dots.forEach((dot, dotIndex) => {
       const active = dotIndex === index;
       dot.setAttribute("aria-current", active ? "true" : "false");
-      dot.classList.toggle("w-7", active);
-      dot.classList.toggle("bg-brand-gold", active);
-      dot.classList.toggle("w-2.5", !active);
-      dot.classList.toggle("bg-white/35", !active);
+      const indicator = dot.querySelector("span")!;
+      indicator.classList.toggle("w-7", active);
+      indicator.classList.toggle("bg-brand-gold", active);
+      indicator.classList.toggle("w-2.5", !active);
+      indicator.classList.toggle("bg-white/35", !active);
     });
   };
   const updateStops = () => {
@@ -66,6 +67,12 @@ export function initServices() {
         (stop, index, positions) =>
           index === 0 || stop - positions[index - 1] > 1,
       );
+    // Fold a tiny final movement into the last full position instead of adding a near-duplicate dot.
+    if (
+      stops.length > 2 &&
+      stops.at(-1)! - stops.at(-2)! < cards[0].clientWidth / 2
+    )
+      stops.splice(-2, 1);
     dots.forEach((dot, index) => {
       dot.hidden = index >= stops.length;
       dot.setAttribute(

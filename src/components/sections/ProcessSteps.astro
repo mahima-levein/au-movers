@@ -24,20 +24,20 @@ const benefits = [
           class="group grid grid-cols-[48px_minmax(0,1fr)] items-stretch gap-3 sm:grid-cols-[56px_minmax(0,1fr)] sm:gap-4 lg:grid-cols-[64px_minmax(0,1fr)]"
           data-process-step
         >
-          <div class="flex min-h-[136px] items-center justify-center rounded-full border border-[#e7e4e2] bg-white text-[#203b3b] transition-colors duration-300 group-hover:border-[#f0c653] group-hover:bg-[#f0c653] group-focus-within:border-[#f0c653] group-focus-within:bg-[#f0c653] sm:min-h-[145px]">
+          <div class="flex min-h-[136px] items-center justify-center rounded-full border border-[#e7e4e2] bg-white text-brand-ink transition-colors duration-300 group-hover:border-[#f0c653] group-hover:bg-[#f0c653] group-focus-within:border-[#f0c653] group-focus-within:bg-[#f0c653] sm:min-h-[145px]">
             <span class="-rotate-90 text-lg font-medium tracking-tight sm:text-xl">
               {step.number}
             </span>
           </div>
           <article class="flex min-w-0 items-center gap-4 rounded-[20px] bg-[#f6f1ec] px-4 py-5 transition-colors duration-300 group-hover:bg-[#f3ece5] sm:gap-5 sm:px-6 lg:px-7">
-            {/* <span class="inline-flex min-h-[60px] shrink-0 items-center justify-center rounded-full bg-white px-2.5 text-xs font-medium text-[#203b3b] [writing-mode:vertical-rl] [transform:rotate(180deg)]">
+            {/* <span class="inline-flex min-h-[60px] shrink-0 items-center justify-center rounded-full bg-white px-2.5 text-xs font-medium text-brand-ink [writing-mode:vertical-rl] [transform:rotate(180deg)]">
               {step.label}
             </span> */}
             <div class="min-w-0">
               <h3 class="text-lg leading-snug font-semibold text-brand-ink sm:text-xl">
                 {step.title}
               </h3>
-              <p class="mt-2 max-w-sm text-sm leading-6 text-[#858b8d] sm:text-base sm:leading-7">
+              <p class="mt-2 max-w-sm text-sm leading-6 text-neutral-600 sm:text-base sm:leading-7">
                 {step.description}
               </p>
             </div>
@@ -52,7 +52,7 @@ const benefits = [
         class="text-[clamp(2.35rem,3.5vw,3.75rem)] leading-[1.08] font-semibold tracking-[-0.04em] text-brand-ink"
       >
         <span class="block">Simple Process for a</span>
-        <span class="block text-brand-gold">Smooth Move</span>
+        <span class="block text-brand-gold-text">Smooth Move</span>
       </h2>
 
       <div
@@ -79,7 +79,7 @@ const benefits = [
 
       <ul class="mt-7 space-y-3">
         {benefits.map((benefit) => (
-          <li class="flex items-start gap-3 text-sm leading-6 font-medium text-[#203b3b] sm:text-[15px]">
+          <li class="flex items-start gap-3 text-sm leading-6 font-medium text-brand-ink sm:text-[15px]">
             <span class="mt-1 grid size-[17px] shrink-0 place-items-center rounded-full bg-[#f0c653] text-white">
               <Check size={12} strokeWidth={3} aria-hidden="true" />
             </span>

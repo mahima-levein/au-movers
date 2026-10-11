@@ -3,7 +3,8 @@ const brandLetters = [..."ANP MOVERS"];
 ---
 
 <div
-  class="fixed inset-0 z-[200] grid place-items-center overflow-hidden bg-[#faf6f2] px-6"
+  hidden
+  class="fixed inset-0 z-[200] grid place-items-center overflow-hidden bg-[#faf6f2] px-6 [&[hidden]]:hidden"
   data-site-loader
   role="status"
   aria-label="ANP Movers is loading"
@@ -12,6 +13,8 @@ const brandLetters = [..."ANP MOVERS"];
     <img
       src="/truck-animated.svg"
       alt=""
+      width="500"
+      height="500"
       class="w-[clamp(210px,32vw,390px)]"
       data-loader-truck
     />

@@ -1,0 +1,160 @@
+---
+import LegalPageLayout, {
+  type LegalSection,
+} from "../components/legal/LegalPageLayout.astro";
+
+const sections: LegalSection[] = [
+  {
+    id: "privacy-introduction",
+    title: "Introduction and Privacy Contact",
+    paragraphs: [
+      "This draft describes the information handling visible in the current ANP Movers website implementation. ANP Movers is the brand shown on the site. [CLIENT TO CONFIRM: legal entity, ABN, business address and dedicated privacy contact.]",
+      "The Privacy Act 1988 and Australian Privacy Principles may apply depending on the business's circumstances. That status requires confirmation; this draft does not claim that all requirements apply to this business or that compliance has been certified.",
+    ],
+  },
+  {
+    id: "privacy-information",
+    title: "Information Entered on the Website",
+    paragraphs: [
+      "The quote demonstration asks for the following information. Please enter only details relevant to your enquiry and avoid unnecessary sensitive information.",
+    ],
+    items: [
+      "Full name, email address and phone number; the interface is designed for an Australian phone number.",
+      "Pickup and delivery locations, property type and move size.",
+      "Preferred moving date and a utility setup preference, including an option to skip utilities.",
+      "A submission timestamp generated in the browser when the demonstration is completed.",
+    ],
+  },
+  {
+    id: "privacy-methods",
+    title: "How Information Is Collected",
+    paragraphs: [
+      "Information is entered directly into the website's quote widget and retained in the current browser session as described below. The newsletter form accepts an email in its input but currently has no subscription connection.",
+      "You can also choose to contact the team by phone or WhatsApp. Information you share through those channels is separate from the website demonstration. Business call records, message handling and any other enquiry channels require confirmation before the policy is finalised.",
+    ],
+  },
+  {
+    id: "privacy-purposes",
+    title: "Purposes of Use",
+    paragraphs: [
+      "Within the current website, quote answers are used to display the steps, validate inputs and show a moving summary. The demonstration does not calculate an automated price or confirm a booking.",
+      "Information provided directly to the business may be needed to answer an enquiry, prepare an estimate or arrange an agreed move. The business must confirm its actual uses, communications, record keeping and any security or legal purposes before approval.",
+    ],
+  },
+  {
+    id: "privacy-quote-storage",
+    title: "Quote Widget and Browser Session Storage",
+    paragraphs: [
+      "The quote widget uses sessionStorage under the key anp-movers:quote-session to retain your answers, progress and completion state in the current browser tab/session. This lets you continue after refreshing the page. Browser session restoration or tab duplication may retain or copy that state depending on your browser.",
+      "The current submit handler writes the entered details and a timestamp to the browser developer console and displays a demo completion message. It does not email the information, send it to staff, save it to a server or deliver it to a CRM through a quote API.",
+      "The Start Over or Start New Quote option resets the widget's saved answers. Your browser's site-data controls can also remove stored data. Resetting the widget does not clear information already displayed in a developer console or information you have separately shared by phone or WhatsApp.",
+    ],
+  },
+  {
+    id: "privacy-cookies",
+    title: "Cookies, Fonts and Analytics",
+    paragraphs: [
+      "The reviewed source code contains no configured analytics, advertising pixel or application cookie-setting integration. The quote widget uses sessionStorage, which is different from a cookie. This source-code finding is not a guarantee that a deployed host or an external service never uses cookies.",
+      "The site loads the Jost font from Google Fonts. Your browser contacts Google's font servers to load the stylesheet and font files, exposing connection information such as your IP address and browser request details to that provider. Actual hosting logs and deployment-level tracking still require confirmation.",
+    ],
+    links: [
+      {
+        label: "Google Privacy Policy",
+        href: "https://policies.google.com/privacy",
+      },
+    ],
+  },
+  {
+    id: "privacy-sharing",
+    title: "Information Sharing",
+    paragraphs: [
+      "The website's quote demonstration has no configured transfer of quote answers to a payment provider, utility referral partner, subcontractor or CRM. Selecting a utility preference does not initiate a referral in the current implementation.",
+      "Google Fonts receives requests for font resources. If you choose a WhatsApp link and send a message, that communication is handled through WhatsApp under its own terms and privacy policy. Website hosting arrangements and any sharing outside the reviewed website code must be confirmed by the business.",
+    ],
+  },
+  {
+    id: "privacy-overseas",
+    title: "International Disclosures",
+    paragraphs: [
+      "Third-party font and messaging services may process information outside Australia. The actual recipients, arrangements and processing countries have not been established by this code review. [CLIENT TO CONFIRM: overseas recipients, relevant countries and any required disclosures.]",
+      "The presence of a hosting package in the project is not confirmation of a deployed provider or its server region. No particular hosting location is asserted by this draft.",
+    ],
+  },
+  {
+    id: "privacy-security",
+    title: "Storage, Security and Retention",
+    paragraphs: [
+      "In-progress quote answers are stored in browser session storage, and submitted demo details are displayed in the local developer console. The reviewed code does not establish a server-side quote record or a business retention period. Access to your browser or device may expose locally stored information.",
+      "No system is entirely risk-free. Business access controls, retention and deletion rules, hosting safeguards and incident procedures need confirmation. This draft makes no claim about a particular encryption standard, certification or guaranteed security.",
+    ],
+  },
+  {
+    id: "privacy-access",
+    title: "Access and Correction",
+    paragraphs: [
+      "You can edit previously reached quote steps and reset the demonstration in your browser. If you have provided information directly to the business, contact the team to ask about access or correction and identify the relevant enquiry.",
+      "Where applicable, requests should be handled consistently with your legal rights. Any necessary identity checks, exceptions and the business's practical process require confirmation; no fee or response deadline is set by this draft.",
+    ],
+  },
+  {
+    id: "privacy-complaints",
+    title: "Privacy Questions and Complaints",
+    paragraphs: [
+      "Raise a privacy question or concern with ANP Movers using the current website contact, describing what happened and the outcome you are seeking. [CLIENT TO CONFIRM: the privacy email and complaint-handling process.]",
+      "If the matter falls within the Office of the Australian Information Commissioner's jurisdiction, its guidance explains how to make a privacy complaint and the steps to take first. This draft does not promise a fixed response time or assume that the OAIC can handle every dispute.",
+    ],
+    links: [
+      { label: "Call ANP Movers: +94 77 416 6098", href: "tel:+94774166098" },
+      {
+        label: "OAIC privacy complaints guidance",
+        href: "https://www.oaic.gov.au/privacy/privacy-complaints",
+      },
+    ],
+  },
+  {
+    id: "privacy-marketing",
+    title: "Marketing Communications",
+    paragraphs: [
+      "The current newsletter form is not connected to a mailing service and displays that subscriptions are unavailable. No newsletter or marketing-send integration was found in the reviewed website code.",
+      "Any future marketing programme must be reflected in an updated policy and appropriate collection information, including the applicable consent, preference and unsubscribe arrangements. Marketing practices outside this code require confirmation.",
+    ],
+  },
+  {
+    id: "privacy-third-parties",
+    title: "Third-Party Websites",
+    paragraphs: [
+      "External links take you to independently operated services. Their own privacy policies apply to information you provide to them. Review those policies before sharing personal information; this draft does not describe or guarantee every external provider's practices.",
+    ],
+  },
+  {
+    id: "privacy-children",
+    title: "Children's Information",
+    paragraphs: [
+      "The quote widget is intended for moving enquiries and does not ask for a child's age or information about children. Avoid including children's details where they are not needed to describe the move. The business must confirm its practices for enquiries involving minors or information about children.",
+    ],
+  },
+  {
+    id: "privacy-updates",
+    title: "Policy Updates and Contact",
+    paragraphs: [
+      "This draft needs updating before new quote delivery, analytics, payment, marketing or utility referral integrations are introduced. An approved policy should reflect actual practices and show a confirmed last-updated date.",
+      "For questions, use the current website contact. The formal privacy contact and policy approval date remain subject to client confirmation.",
+    ],
+  },
+  {
+    id: "privacy-automation",
+    title: "Automated Decisions and AI",
+    paragraphs: [
+      "The reviewed website uses ordinary form validation and step navigation. No AI integration or automated decision about booking acceptance, price, eligibility or another significant customer outcome was found in this source code.",
+      "The business must confirm whether any off-site system uses personal information for automated decisions. Any applicable Australian automated-decision transparency requirements must be reviewed before this policy is approved or such a system is introduced.",
+    ],
+  },
+];
+---
+
+<LegalPageLayout
+  title="Privacy Policy"
+  introduction="Read how the current ANP Movers website handles quote details, browser storage and links to external services."
+  sections={sections}
+  otherPage={{ title: "Terms & Conditions", href: "/terms-and-conditions" }}
+/>

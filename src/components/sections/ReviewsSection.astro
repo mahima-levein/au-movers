@@ -10,20 +10,13 @@ import { customerReviews } from "../../data/reviews";
     aria-labelledby="reviews-heading"
   >
     <div class="mx-auto max-w-7xl px-5 text-center sm:px-6 lg:px-8">
-      <p class="inline-flex items-center gap-2 rounded-full bg-brand-ink/5 px-4 py-2 text-xs font-semibold tracking-wide text-brand-ink uppercase">
-        <span
-          class="size-1.5 rounded-full bg-brand-gold"
-          aria-hidden="true"
-        ></span>
-        Customer Reviews
-      </p>
       <h2
         id="reviews-heading"
         class="mx-auto mt-5 max-w-4xl text-4xl leading-[1.08] font-semibold tracking-tight text-brand-ink sm:text-5xl lg:text-[3.5rem]"
       >
         <span class="block">What Our Customers Say</span>
         <span class="block">
-          About <span class="text-brand-gold">Their Move</span>
+          About <span class="text-brand-gold-text">Their Move</span>
         </span>
       </h2>
       {customerReviews.some((review) => review.isSample) && (
@@ -88,8 +81,13 @@ import { customerReviews } from "../../data/reviews";
             data-review-dot
             aria-label={`Go to review position ${index + 1}`}
             aria-current={index === 0 ? "true" : "false"}
-            class="h-2.5 w-2.5 cursor-pointer rounded-full bg-brand-ink/20 transition-[width,background-color] duration-300 hover:bg-brand-ink/40 focus-visible:outline-2 focus-visible:outline-brand-ink focus-visible:outline-offset-4 aria-[current=true]:w-7 aria-[current=true]:bg-brand-gold motion-reduce:transition-none"
-          ></button>
+            class="group grid h-11 w-9 cursor-pointer place-items-center rounded-lg focus-visible:outline-2 focus-visible:outline-brand-ink focus-visible:outline-offset-2 [&[hidden]]:hidden"
+          >
+            <span
+              aria-hidden="true"
+              class="h-2.5 w-2.5 rounded-full bg-brand-ink/30 transition-[width,background-color] duration-300 group-hover:bg-brand-ink/50 group-aria-[current=true]:w-7 group-aria-[current=true]:bg-brand-gold motion-reduce:transition-none"
+            ></span>
+          </button>
         ))}
       </div>
       <button
@@ -97,7 +95,7 @@ import { customerReviews } from "../../data/reviews";
         data-review-playback
         aria-label="Pause automatic review scrolling"
         aria-pressed="false"
-        class="group grid size-9 cursor-pointer place-items-center rounded-full border border-brand-ink/15 text-brand-ink transition-colors hover:bg-brand-ink/5 focus-visible:outline-2 focus-visible:outline-brand-ink focus-visible:outline-offset-2 [&[hidden]]:hidden"
+        class="group grid size-11 cursor-pointer place-items-center rounded-full border border-brand-ink/15 text-brand-ink transition-colors hover:bg-brand-ink/5 focus-visible:outline-2 focus-visible:outline-brand-ink focus-visible:outline-offset-2 [&[hidden]]:hidden"
       >
         <Pause size={16} class="group-aria-pressed:hidden" aria-hidden="true" />
         <Play

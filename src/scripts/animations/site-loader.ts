@@ -9,6 +9,7 @@ export function initSiteLoader() {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const previousOverflow = document.body.style.overflow;
 
+  loader.hidden = false;
   document.body.style.overflow = "hidden";
   document.body.setAttribute("aria-busy", "true");
 
@@ -19,12 +20,7 @@ export function initSiteLoader() {
   }
 
   if (reducedMotion.matches) {
-    gsap.to(loader, {
-      opacity: 0,
-      duration: 0.2,
-      delay: 0.35,
-      onComplete: finish,
-    });
+    finish();
     return;
   }
 

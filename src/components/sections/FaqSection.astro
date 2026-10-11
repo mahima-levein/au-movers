@@ -28,7 +28,7 @@ import { faqs } from "../../data/faqs";
           </span>
         </h2>
 
-        <div class="mt-9 w-full max-w-[260px] rounded-[22px] bg-[#f0c653] p-5 text-[#203b3b] sm:p-6">
+        <div class="mt-9 w-full max-w-[260px] rounded-[22px] bg-[#f0c653] p-5 text-brand-ink sm:p-6">
           <p class="text-lg leading-snug font-semibold">
             Have Any Question
             <br />
@@ -36,7 +36,7 @@ import { faqs } from "../../data/faqs";
           </p>
           <a
             href="tel:+94774166098"
-            class="mt-4 inline-flex min-h-[50px] items-center gap-3 rounded-full bg-[#000000] py-1 pr-[5px] pl-6 text-sm font-semibold text-[#ffffff] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#e6b83b] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+            class="mt-4 inline-flex min-h-[50px] items-center gap-3 rounded-full bg-[#000000] py-1 pr-[5px] pl-6 text-sm font-semibold text-[#ffffff] transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-ink focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
           >
             Get In Touch
             <span class="grid size-10 place-items-center rounded-full bg-[#000000]">
@@ -49,7 +49,7 @@ import { faqs } from "../../data/faqs";
       <div class="space-y-3" aria-label="Frequently asked questions">
         {faqs.map((faq, index) => (
           <article
-            class="group rounded-[16px] border border-white/15 bg-transparent text-white transition-colors duration-300 data-[active=true]:border-[#f0c653] data-[active=true]:bg-[#f0c653] data-[active=true]:text-[#203b3b]"
+            class="group rounded-[16px] border border-white/15 bg-transparent text-white transition-colors duration-300 data-[active=true]:border-[#f0c653] data-[active=true]:bg-[#f0c653] data-[active=true]:text-brand-ink"
             data-faq-item
             data-faq-index={index}
             data-active={index === 0 ? "true" : "false"}

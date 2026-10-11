@@ -1,21 +1,36 @@
 @import "tailwindcss";
 
 @theme {
-	--color-brand-ink: #142A51;
-	--color-brand-gold: #CA9B34;
-	--font-sans: "Jost", sans-serif;
+  --color-brand-ink: #142a51;
+  --color-brand-gold: #ca9b34;
+  --color-brand-gold-text: #9b711c;
+  --font-sans: "Jost", sans-serif;
 }
 
 html {
-	scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 section[id] {
-	scroll-margin-top: 110px;
+  scroll-margin-top: 110px;
+}
+
+/* Shared keyboard treatment also covers dynamically rendered quote controls. */
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--color-brand-gold-text);
+  outline-offset: 3px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-	html {
-		scroll-behavior: auto;
-	}
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+  }
 }

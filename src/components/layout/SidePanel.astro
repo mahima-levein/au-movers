@@ -1,5 +1,7 @@
 ---
 import { X, Phone, ArrowRight } from "@lucide/astro";
+import { Image } from "astro:assets";
+import logo from "../../../public/anp-logo.png";
 
 interface Props {
   links: { label: string; href: string }[];
@@ -21,7 +23,20 @@ const { links } = Astro.props;
     aria-label="Navigation menu"
   >
     <div class="flex items-center justify-between gap-5 border-b border-white/12 pb-[34px]">
-      <a href="/" aria-label="ANP Movers home" class="inline-flex rounded-lg p-2 focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4"><img src="/anp-logo.png" alt="ANP Movers" width="1030" height="968" class="h-20 w-auto object-contain" /></a>
+      <a
+        href="/"
+        aria-label="ANP Movers home"
+        class="inline-flex rounded-lg p-2 focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4"
+      >
+        <Image
+          src={logo}
+          widths={[96, 192]}
+          sizes="96px"
+          format="webp"
+          alt="ANP Movers"
+          class="h-20 w-auto object-contain"
+        />
+      </a>
       <button
         class="panel-close grid size-[42px] cursor-pointer place-items-center rounded-full border border-white/28 bg-transparent text-inherit transition-colors hover:bg-white/12 focus-visible:outline-2 focus-visible:outline-[#e5c47b] focus-visible:outline-offset-[3px]"
         type="button"
@@ -52,7 +67,7 @@ const { links } = Astro.props;
         <Phone size={18} aria-hidden="true" /> +94 77 416 6098
       </a>
       <a
-        class="inline-flex min-h-[50px] items-center justify-between gap-3 rounded-full bg-[#f0c653] py-1 pr-[5px] pl-6 text-sm font-semibold text-[#263735] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#e6b83b] focus-visible:outline-2 focus-visible:outline-[#e5c47b] focus-visible:outline-offset-[3px]"
+        class="inline-flex min-h-[50px] items-center justify-between gap-3 rounded-full bg-[#f0c653] py-1 pr-[5px] pl-6 text-sm font-semibold text-brand-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#e6b83b] focus-visible:outline-2 focus-visible:outline-[#e5c47b] focus-visible:outline-offset-[3px]"
         href="#request-quote"
       >
         Let's Talk

@@ -13,6 +13,8 @@ export function initTextMarquee() {
       );
       let tween: gsap.core.Tween | undefined;
       let frame = 0;
+      let visible = false;
+      const syncPlayback = () => tween?.paused(!visible || document.hidden);
 
       function rebuild() {
         const progress = tween?.progress() ?? 0;
@@ -34,6 +36,7 @@ export function initTextMarquee() {
           },
         );
         tween.progress(progress);
+        syncPlayback();
       }
 
       function scheduleRebuild() {
@@ -43,7 +46,25 @@ export function initTextMarquee() {
 
       const observer = new ResizeObserver(scheduleRebuild);
       observer.observe(firstSet);
+      const visibility = new IntersectionObserver(([entry]) => {
+        visible = entry.isIntersecting;
+        syncPlayback();
+      });
+      visibility.observe(marquee);
+      document.addEventListener("visibilitychange", syncPlayback);
       reducedMotion.addEventListener("change", scheduleRebuild);
       scheduleRebuild();
+      document.addEventListener(
+        "astro:before-swap",
+        () => {
+          cancelAnimationFrame(frame);
+          tween?.kill();
+          observer.disconnect();
+          visibility.disconnect();
+          reducedMotion.removeEventListener("change", scheduleRebuild);
+          document.removeEventListener("visibilitychange", syncPlayback);
+        },
+        { once: true },
+      );
     });
 }

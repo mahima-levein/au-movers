@@ -1,0 +1,187 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { ArrowRight, ChevronRight } from "@lucide/astro";
+
+export interface LegalSection {
+  id: string;
+  title: string;
+  paragraphs: string[];
+  items?: string[];
+  links?: { label: string; href: string }[];
+}
+interface Props {
+  title: string;
+  introduction: string;
+  sections: LegalSection[];
+  otherPage: { title: string; href: string };
+}
+const { title, introduction, sections, otherPage } = Astro.props;
+---
+
+<BaseLayout
+  title={`${title} | ANP MOVERS`}
+  description={introduction}
+  landingExtras={false}
+  noindex
+>
+  <main
+    id="landing-page"
+    tabindex="-1"
+    class="bg-[#f8f3ef] pt-40 pb-16 text-brand-ink focus-visible:outline-2 focus-visible:outline-brand-ink sm:pt-44 lg:pb-24"
+  >
+    <div class="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb" class="mb-8">
+        <ol class="flex flex-wrap items-center gap-2 text-sm text-brand-ink/70">
+          <li>
+            <a
+              href="/"
+              class="rounded-sm underline decoration-brand-ink/25 underline-offset-4 hover:text-brand-ink"
+            >
+              Home
+            </a>
+          </li>
+          <li aria-hidden="true">
+            <ChevronRight size={15} />
+          </li>
+          <li aria-current="page">{title}</li>
+        </ol>
+      </nav>
+      <header class="max-w-3xl">
+        <h1 class="mt-4 text-[clamp(2.25rem,5vw,4rem)] leading-[1.1] font-semibold tracking-tight">
+          {title}
+        </h1>
+        <p class="mt-5 max-w-2xl text-base leading-7 text-neutral-600">
+          {introduction}
+        </p>
+        <p class="mt-4 text-sm text-neutral-600">
+          Last updated: pending client approval.
+        </p>
+      </header>
+      <aside
+        aria-label="Draft status"
+        class="mt-8 rounded-2xl border border-brand-gold/30 bg-white/70 px-5 py-4 text-sm leading-6 text-neutral-700"
+      >
+        <strong class="text-brand-ink">Draft for review.</strong> These
+        documents require client confirmation and Australian legal review before
+        publication. They are not approved service contracts or policies.
+      </aside>
+      <div class="mt-10 grid min-w-0 gap-8 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10">
+        <aside class="hidden self-start lg:sticky lg:top-36 lg:block">
+          <nav
+            aria-label="Contents"
+            class="max-h-[calc(100dvh-170px)] overflow-y-auto pr-3"
+          >
+            <p class="mb-4 text-sm font-semibold">On this page</p>
+            <ol class="space-y-1 border-l border-brand-ink/10">
+              {sections.map((section, index) => (
+                <li>
+                  <a
+                    href={`#${section.id}`}
+                    class="block rounded-r-lg border-l-2 border-transparent px-4 py-2 text-sm leading-5 text-neutral-600 transition-colors hover:border-brand-gold hover:bg-white/80 hover:text-brand-ink"
+                  >
+                    {index + 1}. {section.title}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        </aside>
+        <div class="min-w-0">
+          <details class="mb-6 rounded-2xl border border-brand-ink/10 bg-white px-5 py-4 lg:hidden">
+            <summary class="cursor-pointer rounded-sm py-1 text-sm font-semibold">
+              On this page
+            </summary>
+            <nav aria-label="Mobile contents" class="mt-3">
+              <ol class="space-y-1">
+                {sections.map((section, index) => (
+                  <li>
+                    <a
+                      href={`#${section.id}`}
+                      class="block rounded-lg px-2 py-3 text-sm leading-5 text-neutral-600 hover:bg-[#f8f3ef] hover:text-brand-ink"
+                    >
+                      {index + 1}. {section.title}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          </details>
+          <article
+            aria-label={title}
+            class="min-w-0 rounded-3xl border border-brand-ink/5 bg-white px-5 py-8 shadow-[0_8px_30px_rgb(20_42_81_/_3%)] sm:px-8 sm:py-10 lg:px-12"
+          >
+            <div class="mx-auto max-w-[75ch] divide-y divide-brand-ink/10">
+              {sections.map((section, index) => (
+                <section
+                  id={section.id}
+                  aria-labelledby={`${section.id}-heading`}
+                  class="scroll-mt-36 py-8 first:pt-0 last:pb-0"
+                >
+                  <h2
+                    id={`${section.id}-heading`}
+                    class="text-xl leading-snug font-semibold tracking-tight sm:text-2xl"
+                  >
+                    {index + 1}. {section.title}
+                  </h2>
+                  <div class="mt-4 space-y-4 text-base leading-8 text-neutral-700">
+                    {section.paragraphs.map((paragraph) => (
+                      <p>{paragraph}</p>
+                    ))}
+                    {section.items && (
+                      <ul class="list-disc space-y-2 pl-5 marker:text-brand-gold">
+                        {section.items.map((item) => (
+                          <li>{item}</li>
+                        ))}
+                      </ul>
+                    )}
+                    {section.links && (
+                      <ul class="space-y-2">
+                        {section.links.map((link) => (
+                          <li>
+                            <a
+                              href={link.href}
+                              class="break-words rounded-sm font-medium text-brand-ink underline decoration-brand-gold underline-offset-4 hover:decoration-brand-ink"
+                            >
+                              {link.label}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </section>
+              ))}
+            </div>
+          </article>
+          <section
+            id="legal-questions"
+            aria-labelledby="legal-questions-heading"
+            class="mt-6 rounded-3xl border border-brand-ink/10 bg-white/70 p-6 sm:p-8"
+          >
+            <h2 id="legal-questions-heading" class="text-xl font-semibold">
+              Have questions?
+            </h2>
+            <p class="mt-3 text-base leading-7 text-neutral-600">
+              Contact ANP Movers to discuss this draft or your moving enquiry.
+            </p>
+            <div class="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <a
+                href="tel:+94774166098"
+                class="inline-flex min-h-12 items-center rounded-full bg-brand-ink px-5 text-sm font-semibold text-white hover:bg-brand-ink/90"
+              >
+                Call +94 77 416 6098
+              </a>
+              <a
+                href={otherPage.href}
+                class="inline-flex min-h-12 items-center gap-2 rounded-sm text-sm font-semibold underline decoration-brand-gold underline-offset-4"
+              >
+                {otherPage.title}
+                <ArrowRight size={16} aria-hidden="true" />
+              </a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

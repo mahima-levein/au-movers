@@ -16,13 +16,15 @@ import { pricingPlans } from "../../data/pricing-plans";
       >
         <span class="block">Choose the Right Plan</span>
         <span class="block">
-          <span class="text-brand-gold">for You</span>
+          <span class="text-brand-gold-text">for You</span>
         </span>
       </h2>
 
       <div
         class="mx-auto mt-10 grid w-full max-w-3xl grid-cols-1 gap-1 sm:grid-cols-3 rounded-2xl bg-[#f6f1ec] p-1.5 sm:rounded-full"
         role="tablist"
+        aria-orientation="vertical"
+        data-packing-tabs
         aria-label="Moving and packing plans"
       >
         {pricingPlans.map((plan, index) => (
@@ -51,7 +53,7 @@ import { pricingPlans } from "../../data/pricing-plans";
             hidden={index !== 0}
             data-packing-panel
             class:list={[
-              "group flex min-w-0 flex-col overflow-hidden rounded-[22px] p-6 text-[#203b3b] transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-brand-ink focus-visible:outline-offset-4 motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-8 lg:p-9 [&[hidden]]:hidden",
+              "group flex min-w-0 flex-col overflow-hidden rounded-[22px] p-6 text-brand-ink transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-brand-ink focus-visible:outline-offset-4 motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-8 lg:p-9 [&[hidden]]:hidden",
               plan.featured ? "bg-[#e8c45c]" : "bg-[#f6f1ec]",
             ]}
           >
@@ -88,7 +90,7 @@ import { pricingPlans } from "../../data/pricing-plans";
                   ]}
                 >
                   <span
-                    class="mt-0.5 grid size-4 shrink-0 place-items-center rounded-full bg-white text-[#203b3b]"
+                    class="mt-0.5 grid size-4 shrink-0 place-items-center rounded-full bg-white text-brand-ink"
                     aria-hidden="true"
                   >
                     <Check size={11} strokeWidth={3} />
@@ -108,7 +110,7 @@ import { pricingPlans } from "../../data/pricing-plans";
                 "group/cta mt-9 flex min-h-[48px] w-full items-center justify-between gap-3 rounded-full py-1 pr-1 pl-5 text-sm font-semibold uppercase transition-transform duration-300 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-[#203b3b] focus-visible:outline-offset-2",
                 plan.featured
                   ? "bg-[#142A51] text-white"
-                  : "bg-white text-[#203b3b]",
+                  : "bg-white text-brand-ink",
               ]}
             >
               <span>{plan.ctaLabel}</span>
@@ -116,7 +118,7 @@ import { pricingPlans } from "../../data/pricing-plans";
                 class:list={[
                   "grid size-10 shrink-0 place-items-center rounded-full",
                   plan.featured
-                    ? "bg-white text-[#203b3b]"
+                    ? "bg-white text-brand-ink"
                     : "bg-[#142A51] text-white",
                 ]}
               >
@@ -143,6 +145,15 @@ import { pricingPlans } from "../../data/pricing-plans";
   const panels = [
     ...(section?.querySelectorAll<HTMLElement>("[data-packing-panel]") ?? []),
   ];
+  const tabList = section?.querySelector<HTMLElement>("[data-packing-tabs]");
+  const stacked = window.matchMedia("(max-width: 639px)");
+  const syncOrientation = () =>
+    tabList?.setAttribute(
+      "aria-orientation",
+      stacked.matches ? "vertical" : "horizontal",
+    );
+  stacked.addEventListener("change", syncOrientation);
+  syncOrientation();
 
   function selectTab(index: number) {
     tabs.forEach((tab, tabIndex) => {
@@ -157,8 +168,9 @@ import { pricingPlans } from "../../data/pricing-plans";
     tab.addEventListener("click", () => selectTab(index));
     tab.addEventListener("keydown", (event) => {
       let next = index;
-      if (event.key === "ArrowRight") next = (index + 1) % tabs.length;
-      else if (event.key === "ArrowLeft")
+      if (event.key === (stacked.matches ? "ArrowDown" : "ArrowRight"))
+        next = (index + 1) % tabs.length;
+      else if (event.key === (stacked.matches ? "ArrowUp" : "ArrowLeft"))
         next = (index - 1 + tabs.length) % tabs.length;
       else if (event.key === "Home") next = 0;
       else if (event.key === "End") next = tabs.length - 1;

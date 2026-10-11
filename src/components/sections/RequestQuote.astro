@@ -1,8 +1,10 @@
 ---
 import { ArrowRight } from "@lucide/astro";
+import { getImage } from "astro:assets";
 // import { Image } from "astro:assets";
 import quoteImage from "../../assets/banner-image-1.jpg";
 import bgVideo from "../../assets/bg-video-au.mp4?url";
+const poster = await getImage({ src: quoteImage, width: 1440, format: "webp" });
 ---
 
 <section
@@ -23,15 +25,14 @@ import bgVideo from "../../assets/bg-video-au.mp4?url";
     -->
     <video
       class="absolute inset-0 size-full object-cover object-center"
-      autoplay
       loop
       muted
       playsinline
-      preload="metadata"
-      poster={quoteImage.src}
+      preload="none"
+      poster={poster.src}
       aria-hidden="true"
     >
-      <source src={bgVideo} type="video/mp4" />
+      <source data-src={bgVideo} type="video/mp4" />
     </video>
     <div
       class="pointer-events-none absolute inset-0 bg-black/10"
@@ -42,7 +43,7 @@ import bgVideo from "../../assets/bg-video-au.mp4?url";
         id="contact"
         class="w-full max-w-[1180px] rounded-[30px] bg-[#faf6f2] px-5 py-9 text-center shadow-xl sm:px-8 sm:py-10 lg:px-16 lg:py-12"
       >
-        <!-- <span class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-semibold tracking-[0.12em] text-[#203b3b]">
+        <!-- <span class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-semibold tracking-[0.12em] text-brand-ink">
           Get Your Free Moving Estimate
         </span> -->
         <h2
@@ -58,7 +59,7 @@ import bgVideo from "../../assets/bg-video-au.mp4?url";
         <button
           type="button"
           data-open-quote
-          class="mt-7 inline-flex min-h-11 cursor-pointer items-center gap-[13px] rounded-full bg-[#f0c653] py-1 pr-[5px] pl-5 text-[13px] font-semibold text-[#263735] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#e6b83b] focus-visible:outline-2 focus-visible:outline-[#a07825] focus-visible:outline-offset-[3px]"
+          class="mt-7 inline-flex min-h-11 cursor-pointer items-center gap-[13px] rounded-full bg-[#f0c653] py-1 pr-[5px] pl-5 text-[13px] font-semibold text-brand-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#e6b83b] focus-visible:outline-2 focus-visible:outline-[#a07825] focus-visible:outline-offset-[3px]"
         >
           Get My Free Moving Quote
           <span class="grid size-[34px] place-items-center rounded-full bg-[#fffdf8]">
@@ -69,3 +70,8 @@ import bgVideo from "../../assets/bg-video-au.mp4?url";
     </div>
   </div>
 </section>
+
+<script>
+  import { initQuoteVideo } from "../../scripts/animations/quote-video";
+  initQuoteVideo();
+</script>

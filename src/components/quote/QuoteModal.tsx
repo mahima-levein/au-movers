@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { createPortal } from "react-dom";
 import { DayPicker } from "@daypicker/react";
 import "@daypicker/react/style.css";
 import {
-  Building2,
   CalendarDays,
   Check,
   CircleCheck,
@@ -43,7 +42,7 @@ const steps = [
 ] as const;
 
 const fieldClass =
-  "h-12 w-full rounded-xl border border-neutral-300 bg-white px-4 text-sm text-[#203b3b] outline-none focus:border-[#203b3b] focus:ring-2 focus:ring-[#203b3b]/15";
+  "h-12 w-full rounded-xl border border-neutral-300 bg-white px-4 text-base text-brand-ink outline-none focus:border-brand-ink focus:ring-2 focus:ring-brand-ink/15 aria-invalid:border-red-600 aria-invalid:focus:ring-red-600/15 sm:text-sm";
 
 function isoDate(date: Date) {
   const offset = date.getTimezoneOffset();
@@ -74,6 +73,19 @@ export default function QuoteModal({
   const [ready, setReady] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
+  const stepRef = useRef<HTMLDivElement>(null);
+  const previousStep = useRef(session.currentStep);
+
+  useEffect(() => {
+    if (previousStep.current === session.currentStep) return;
+    previousStep.current = session.currentStep;
+    const heading = stepRef.current?.querySelector<HTMLElement>("h3");
+    if (heading) {
+      heading.tabIndex = -1;
+      heading.focus({ preventScroll: true });
+      heading.scrollIntoView({ block: "nearest", behavior: "instant" });
+    }
+  }, [session.currentStep]);
 
   useEffect(() => {
     setSession(loadQuoteSession());
@@ -132,6 +144,15 @@ export default function QuoteModal({
     if (!open || inlineHost) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    const background = [
+      ...document.querySelectorAll<HTMLElement>(
+        "#site-header, #main-content, #site-footer, #floating-call",
+      ),
+    ];
+    const priorInert = background.map((element) => element.inert);
+    background.forEach((element) => {
+      element.inert = true;
+    });
     requestAnimationFrame(() => dialogRef.current?.focus());
     const keydown = (event: KeyboardEvent) => {
       if (event.key === "Escape") close();
@@ -140,7 +161,10 @@ export default function QuoteModal({
           ...dialogRef.current.querySelectorAll<HTMLElement>(
             'button, input, [href], select, [tabindex]:not([tabindex="-1"])',
           ),
-        ].filter((item) => !item.hasAttribute("disabled"));
+        ].filter(
+          (item) =>
+            !item.hasAttribute("disabled") && item.getClientRects().length,
+        );
         if (!focusable.length) return;
         const first = focusable[0];
         const last = focusable.at(-1)!;
@@ -156,6 +180,9 @@ export default function QuoteModal({
     document.addEventListener("keydown", keydown);
     return () => {
       document.body.style.overflow = previousOverflow;
+      background.forEach((element, index) => {
+        element.inert = priorInert[index];
+      });
       document.removeEventListener("keydown", keydown);
     };
   }, [open, inlineHost]);
@@ -230,9 +257,16 @@ export default function QuoteModal({
       nextErrors.toLocation = "Enter a destination.";
     setErrors(nextErrors);
     if (!Object.keys(nextErrors).length) advance(1);
+    else
+      requestAnimationFrame(() =>
+        dialogRef.current
+          ?.querySelector<HTMLInputElement>('[aria-invalid="true"]')
+          ?.focus(),
+      );
   }
 
   async function submit() {
+    if (submitting) return;
     const { fullName, email, phone } = session.data;
     const nextErrors: Record<string, string> = {};
     if (!fullName.trim()) nextErrors.fullName = "Enter your full name.";
@@ -241,7 +275,14 @@ export default function QuoteModal({
     if (phone.replace(/\D/g, "").length < 9)
       nextErrors.phone = "Enter a valid Australian phone number.";
     setErrors(nextErrors);
-    if (Object.keys(nextErrors).length) return;
+    if (Object.keys(nextErrors).length) {
+      requestAnimationFrame(() =>
+        dialogRef.current
+          ?.querySelector<HTMLInputElement>('[aria-invalid="true"]')
+          ?.focus(),
+      );
+      return;
+    }
     setSubmitting(true);
     await new Promise((resolve) => window.setTimeout(resolve, 350));
     console.log("ANP Movers quote request:", {
@@ -288,7 +329,8 @@ export default function QuoteModal({
           key={option.value}
           type="button"
           onClick={() => onSelect(option.value)}
-          className={`relative min-h-28 rounded-2xl border p-4 text-left transition duration-200 hover:-translate-y-0.5 hover:border-[#f0c653] hover:shadow-md ${selected === option.value ? "border-[#f0c653] bg-[#f0c653]/15" : "border-neutral-200 bg-white"}`}
+          aria-pressed={selected === option.value}
+          className={`relative min-h-28 rounded-2xl border p-4 text-left transition duration-200 hover:-translate-y-0.5 hover:border-brand-gold hover:shadow-md motion-reduce:transform-none ${selected === option.value ? "border-brand-gold bg-brand-gold/15" : "border-neutral-200 bg-white"}`}
         >
           {selected === option.value && (
             <Check
@@ -370,7 +412,7 @@ export default function QuoteModal({
                 Thank You!
               </h3>
               <p className="mx-auto mt-3 max-w-md text-neutral-600">
-                Your quote details are ready in this demo.
+                Your quote details are ready in this demo. No request was sent.
               </p>
               <div className="mt-7 flex flex-wrap justify-center gap-3">
                 {!inlineHost && (
@@ -392,14 +434,14 @@ export default function QuoteModal({
           </div>
         ) : (
           <div className="p-4 sm:p-7">
-            <nav className="overflow-x-auto pb-2" aria-label="Quote progress">
-              <ol className="relative mx-auto flex min-w-[560px] max-w-4xl items-start justify-between">
+            <nav className="pb-2" aria-label="Quote progress">
+              <ol className="relative mx-auto flex min-w-0 max-w-4xl items-start justify-between">
                 <li
-                  className="pointer-events-none absolute top-5 right-[8.333%] left-[8.333%] h-0.5 -translate-y-1/2 overflow-hidden bg-neutral-200"
+                  className="pointer-events-none absolute top-4 right-[8.333%] left-[8.333%] h-0.5 -translate-y-1/2 overflow-hidden bg-neutral-200 sm:top-5"
                   aria-hidden="true"
                 >
                   <span
-                    className="block h-full bg-emerald-600 transition-[width] duration-300 motion-reduce:transition-none"
+                    className="block h-full bg-brand-ink transition-[width] duration-300 motion-reduce:transition-none"
                     style={{
                       width: `${(session.currentStep / (steps.length - 1)) * 100}%`,
                     }}
@@ -416,16 +458,19 @@ export default function QuoteModal({
                       <button
                         type="button"
                         disabled={!reached}
+                        aria-current={
+                          index === session.currentStep ? "step" : undefined
+                        }
                         onClick={() => goToStep(index)}
-                        className="group flex flex-col items-center gap-1.5 disabled:cursor-not-allowed"
+                        className="group flex min-h-14 w-full flex-col items-center gap-1.5 rounded-lg disabled:cursor-not-allowed"
                       >
                         <span
-                          className={`grid size-10 place-items-center rounded-full border ${completed ? "border-emerald-600 bg-emerald-600 text-white" : index === session.currentStep ? "border-[#f0c653] bg-[#f0c653] text-[#203b3b]" : "border-neutral-300 bg-white text-neutral-400"}`}
+                          className={`grid size-8 place-items-center rounded-full border sm:size-10 ${completed ? "border-brand-ink bg-brand-ink text-white" : index === session.currentStep ? "border-brand-gold bg-brand-gold text-brand-ink" : "border-neutral-300 bg-white text-neutral-500"}`}
                         >
                           {completed ? <Check size={18} /> : <Icon size={18} />}
                         </span>
                         <span
-                          className={`text-[11px] font-semibold sm:text-xs ${completed ? "text-emerald-700" : index === session.currentStep ? "text-[#203b3b]" : "text-neutral-400"}`}
+                          className={`text-[11px] font-semibold sm:text-xs ${index !== session.currentStep ? "max-[480px]:sr-only" : ""} ${completed || index === session.currentStep ? "text-brand-ink" : "text-neutral-500"}`}
                         >
                           {label}
                         </span>
@@ -436,7 +481,11 @@ export default function QuoteModal({
               </ol>
             </nav>
 
-            <div className="mx-auto mt-5 max-w-4xl rounded-3xl bg-white p-5 shadow-sm sm:p-8">
+            <div
+              ref={stepRef}
+              aria-busy={submitting}
+              className="mx-auto mt-5 max-w-4xl rounded-3xl bg-white p-4 shadow-sm sm:p-8"
+            >
               {session.currentStep === 0 && (
                 <>
                   <h3 className="text-2xl font-semibold text-brand-ink">
@@ -461,6 +510,10 @@ export default function QuoteModal({
                             size={18}
                           />
                           <input
+                            id={`modal-${key}`}
+                            name={key}
+                            required
+                            autoComplete="off"
                             value={data[key as "fromLocation" | "toLocation"]}
                             onChange={(event) => {
                               updateData({ [key]: event.target.value });
@@ -469,10 +522,17 @@ export default function QuoteModal({
                             className={`${fieldClass} pl-10`}
                             placeholder={label}
                             aria-invalid={Boolean(errors[key])}
+                            aria-describedby={
+                              errors[key] ? `modal-${key}-error` : undefined
+                            }
                           />
                         </span>
                         {errors[key] && (
-                          <span className="mt-1 block text-xs text-red-600">
+                          <span
+                            id={`modal-${key}-error`}
+                            role="alert"
+                            className="mt-1 block text-xs text-red-600"
+                          >
                             {errors[key]}
                           </span>
                         )}
@@ -523,11 +583,19 @@ export default function QuoteModal({
                   <p className="mt-1 mb-4 text-sm text-neutral-500">
                     Pick your preferred moving date.
                   </p>
-                  <div className="overflow-hidden rounded-2xl border border-neutral-200 p-2 [--rdp-accent-color:#203b3b] [--rdp-accent-background-color:#f0c653] sm:p-4">
+                  <div className="overflow-hidden rounded-2xl border border-neutral-200 p-2 sm:p-4">
                     <DayPicker
                       className="w-full"
                       styles={{
-                        root: { width: "100%" },
+                        // DayPicker defines its defaults on the root; these library theme variables must be set there.
+                        root: {
+                          width: "100%",
+                          "--rdp-accent-color": "var(--color-brand-ink)",
+                          "--rdp-accent-background-color":
+                            "var(--color-brand-gold)",
+                          "--rdp-day_button-width": "100%",
+                          "--rdp-day_button-height": "40px",
+                        } as CSSProperties,
                         months: {
                           display: "grid",
                           gridTemplateColumns: `repeat(${months}, minmax(0, 1fr))`,
@@ -584,6 +652,23 @@ export default function QuoteModal({
                       >
                         {label} *
                         <input
+                          id={`modal-${key}`}
+                          name={key}
+                          required
+                          autoComplete={
+                            key === "fullName"
+                              ? "name"
+                              : key === "email"
+                                ? "email"
+                                : "tel"
+                          }
+                          inputMode={
+                            key === "phone"
+                              ? "tel"
+                              : key === "email"
+                                ? "email"
+                                : "text"
+                          }
                           type={type}
                           value={data[key as "fullName" | "email" | "phone"]}
                           onChange={(event) => {
@@ -593,9 +678,16 @@ export default function QuoteModal({
                           className={`${fieldClass} mt-2`}
                           placeholder={key === "phone" ? "04XX XXX XXX" : label}
                           aria-invalid={Boolean(errors[key])}
+                          aria-describedby={
+                            errors[key] ? `modal-${key}-error` : undefined
+                          }
                         />
                         {errors[key] && (
-                          <span className="mt-1 block text-xs text-red-600">
+                          <span
+                            id={`modal-${key}-error`}
+                            role="alert"
+                            className="mt-1 block text-xs text-red-600"
+                          >
                             {errors[key]}
                           </span>
                         )}

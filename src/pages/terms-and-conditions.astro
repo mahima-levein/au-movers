@@ -1,0 +1,154 @@
+---
+import LegalPageLayout, {
+  type LegalSection,
+} from "../components/legal/LegalPageLayout.astro";
+
+const sections: LegalSection[] = [
+  {
+    id: "terms-introduction",
+    title: "Introduction and Scope",
+    paragraphs: [
+      "These draft terms describe use of the ANP Movers website and matters to discuss when arranging moving services. ANP Movers is the brand displayed on this website. [CLIENT TO CONFIRM: the contracting legal entity, ABN and business address.]",
+      "Browsing this website or requesting information does not confirm a move. A moving-service agreement requires a separately accepted quote and booking terms identifying the supplier, services and agreed conditions. This draft is not that agreement.",
+    ],
+  },
+  {
+    id: "terms-services",
+    title: "Moving Services",
+    paragraphs: [
+      "The website describes residential and commercial moving, local and long-distance moves, and packing and unpacking. The services available for your location, items and date must be confirmed with the team and recorded in your accepted quote.",
+      "Storage, specialist transport or interstate arrangements should not be assumed to be included. Ask the team to confirm any additional service before booking.",
+    ],
+  },
+  {
+    id: "terms-quotes",
+    title: "Requesting Quotes",
+    paragraphs: [
+      "Provide accurate pickup and delivery addresses, an inventory or move size, preferred dates and relevant access information. Include stairs, lifts, parking restrictions, walking distances and items needing special handling. Let the team know if these details change.",
+      "A quote request is an enquiry, not a confirmed booking. The current website quote widget is a demonstration: submitting it does not send a request to staff. Please contact the team directly for a moving enquiry.",
+    ],
+  },
+  {
+    id: "terms-bookings",
+    title: "Booking Confirmations",
+    paragraphs: [
+      "Before treating a move as booked, obtain confirmation of the service supplier, agreed services, date, price and booking conditions. Do not rely on a website message or a preferred date selected in the quote demonstration as a reservation.",
+      "[CLIENT TO CONFIRM: how quotes are accepted, how bookings are confirmed and which documents form the moving-service agreement.]",
+    ],
+  },
+  {
+    id: "terms-payment",
+    title: "Prices, GST, Deposits and Payment",
+    paragraphs: [
+      "Website plan prices should be read alongside the scope of your accepted quote. Confirm the total price, what is included, any agreed additional work, and whether GST is included or payable before accepting a booking.",
+      "Deposit requirements, payment methods, due dates and any additional charges require confirmation in the booking terms. This draft sets no deposit amount, payment deadline or automatic fee. Any change to agreed services or price should be explained and agreed, subject to applicable law.",
+    ],
+  },
+  {
+    id: "terms-responsibilities",
+    title: "Customer Responsibilities",
+    paragraphs: [
+      "Help the team plan a safe move by providing accurate instructions and discussing preparation and access before moving day.",
+    ],
+    items: [
+      "Ensure you have permission or authority to arrange movement of the goods.",
+      "Identify fragile, valuable, unusually heavy or specialist items and discuss suitable handling.",
+      "Tell the team about access restrictions, permits, lifts, stairs and any known safety hazards.",
+      "Agree which items you will pack or prepare yourself and which services the team will provide.",
+      "Provide a contact person and clear pickup and delivery instructions.",
+    ],
+  },
+  {
+    id: "terms-special-items",
+    title: "Restricted or Special Items",
+    paragraphs: [
+      "Tell the team before booking about hazardous materials, perishables, cash, jewellery, important documents, pets or any other item needing special arrangements. Do not assume these items can be carried or that ordinary packing is suitable.",
+      "[CLIENT TO CONFIRM: prohibited goods, items customers must carry themselves, and any specialist handling policy.]",
+    ],
+  },
+  {
+    id: "terms-changes",
+    title: "Changes, Rescheduling and Cancellation",
+    paragraphs: [
+      "Contact the team as soon as possible if your dates, addresses, inventory or access arrangements change, or if you need to cancel. Discuss availability and any proposed changes to services or cost before agreeing to a revised booking.",
+      "[CLIENT TO CONFIRM: rescheduling, cancellation and refund rules.] This draft does not impose a cancellation window, penalty or automatic forfeiture of a deposit. Applicable consumer rights continue to apply.",
+    ],
+  },
+  {
+    id: "terms-delays",
+    title: "Delays and Unforeseen Events",
+    paragraphs: [
+      "Traffic, weather, access difficulties and safety conditions can affect a move. Discuss any timing requirements in advance and contact the team if circumstances change.",
+      "If a delay occurs, the appropriate response depends on the circumstances, the service agreement and applicable law. This section does not remove responsibility for a failure to meet legal obligations.",
+    ],
+  },
+  {
+    id: "terms-claims",
+    title: "Damage, Loss and Claims",
+    paragraphs: [
+      "If you notice damage or a missing item, contact the team and provide the booking details, a description of the concern and any available photographs or supporting records. Keep relevant documents so the issue can be discussed.",
+      "[CLIENT TO CONFIRM: the claims contact, assessment process and any verified insurance arrangements, exclusions or excess.] Do not assume blanket transit cover from the website. Any insurance arrangement is separate from rights that cannot be excluded under law. No claim deadline or liability exclusion is established by this draft.",
+    ],
+  },
+  {
+    id: "terms-consumer-law",
+    title: "Australian Consumer Law",
+    paragraphs: [
+      "Nothing in these terms is intended to exclude, restrict or modify consumer guarantees or other rights and remedies under the Australian Consumer Law that cannot lawfully be excluded, restricted or modified.",
+      "Where those protections apply, your remedies depend on the nature of the service and the circumstances of the problem. Contact the team to raise a concern; this draft does not impose a blanket no-refund rule or waive responsibility for damage.",
+    ],
+    links: [
+      {
+        label: "ACCC guidance on contracts and consumer rights",
+        href: "https://www.accc.gov.au/consumers/buying-products-and-services/contracts",
+      },
+    ],
+  },
+  {
+    id: "terms-website",
+    title: "Website Use and Intellectual Property",
+    paragraphs: [
+      "Use the website lawfully. Do not interfere with its operation, attempt unauthorised access or submit information you know to be false. Website material is provided to help you explore services and make enquiries; confirm details relevant to your move directly with the team.",
+      "Branding, text and images may be protected by intellectual property rights held by their respective owners. Viewing the website does not grant permission to reuse protected material beyond what the law allows or the relevant owner permits.",
+    ],
+  },
+  {
+    id: "terms-third-parties",
+    title: "Third-Party Links",
+    paragraphs: [
+      "The website links to external services, including WhatsApp. External websites and services have their own terms and privacy practices. Review them before sharing information or using those services. A link does not, by itself, guarantee an external provider's services or content.",
+    ],
+  },
+  {
+    id: "terms-complaints",
+    title: "Complaints and Contact",
+    paragraphs: [
+      "To discuss a moving enquiry or concern, use the phone contact currently displayed on the website and provide relevant details. The business must confirm its formal complaints contact and process before these terms are approved. No response deadline is promised in this draft.",
+    ],
+    links: [
+      { label: "Call ANP Movers: +94 77 416 6098", href: "tel:+94774166098" },
+    ],
+  },
+  {
+    id: "terms-updates",
+    title: "Changes to Terms",
+    paragraphs: [
+      "An approved version may be updated as services or website practices change. The published version should identify its actual last-updated date. Updating website wording does not automatically alter a service agreement already accepted; any contractual variation must be handled under that agreement and applicable law.",
+    ],
+  },
+  {
+    id: "terms-law",
+    title: "Applicable Law",
+    paragraphs: [
+      "This draft is prepared for moving services offered in Australia and should be read with applicable Australian law. [CLIENT TO CONFIRM: the relevant state or territory and any appropriate jurisdiction wording.] Nothing here restricts a right to seek a remedy or use a forum available under applicable law.",
+    ],
+  },
+];
+---
+
+<LegalPageLayout
+  title="Terms & Conditions"
+  introduction="Read the draft website and moving-service terms for ANP Movers, including quotes, bookings and customer responsibilities."
+  sections={sections}
+  otherPage={{ title: "Privacy Policy", href: "/privacy-policy" }}
+/>

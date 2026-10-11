@@ -9,9 +9,19 @@ import FloatingCall from "../components/ui/FloatingCall.astro";
 interface Props {
   title?: string;
   description?: string;
+  landingExtras?: boolean;
+  noindex?: boolean;
 }
 
-const { title = "ANP MOVERS", description = "" } = Astro.props;
+const {
+  title = "ANP MOVERS",
+  description = "Explore ANP Movers moving services, packing options and prices. Plan your move and request a quote.",
+  landingExtras = true,
+  noindex = false,
+} = Astro.props;
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site).href
+  : undefined;
 ---
 
 <!doctype html>
@@ -20,23 +30,37 @@ const { title = "ANP MOVERS", description = "" } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    {canonical && <link rel="canonical" href={canonical} />}
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
     <title>{title}</title>
   </head>
   <body>
-    <SiteLoader />
+    <a
+      href="#landing-page"
+      class="fixed top-3 left-3 z-[210] -translate-y-24 rounded-full bg-brand-ink px-5 py-3 font-semibold text-white focus:translate-y-0 focus:outline-2 focus:outline-brand-gold focus:outline-offset-2"
+    >
+      Skip to content
+    </a>
+    {landingExtras && <SiteLoader />}
     <Header />
     <div id="main-content">
       <slot />
     </div>
     <Footer />
-    <FloatingCall />
-    <QuoteModal mobileInlineTarget="hero-quote-slot" client:load />
+    {landingExtras && <FloatingCall />}
+    {landingExtras && (
+      <QuoteModal mobileInlineTarget="hero-quote-slot" client:load />
+    )}
   </body>
 </html>

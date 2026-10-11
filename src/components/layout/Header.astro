@@ -1,7 +1,11 @@
 ---
 import { Phone } from "@lucide/astro";
 import SidePanel from "./SidePanel.astro";
+import { Image } from "astro:assets";
+import logo from "../../../public/anp-logo.png";
 
+const homeLink = (href: string) =>
+  Astro.url.pathname === "/" ? href : `/${href}`;
 const links = [
   { label: "Home", href: "#home-hero" },
   { label: "About", href: "#who-we-are" },
@@ -9,10 +13,10 @@ const links = [
   { label: "Steps", href: "#process-steps" },
   { label: "FAQs", href: "#faq" },
   { label: "Contact", href: "#request-quote" },
-];
+].map((link) => ({ ...link, href: homeLink(link.href) }));
 const mobileLinks = links.flatMap((link) =>
-  link.href === "#faq"
-    ? [link, { label: "Reviews", href: "#customer-reviews" }]
+  link.label === "FAQs"
+    ? [link, { label: "Reviews", href: homeLink("#customer-reviews") }]
     : [link],
 );
 ---
@@ -27,10 +31,20 @@ const mobileLinks = links.flatMap((link) =>
       href="/"
       aria-label="ANP Movers home"
     >
-      <img src="/anp-logo.png" alt="ANP Movers" width="1030" height="968" class="h-14 w-auto object-contain max-[620px]:h-12" />
+      <Image
+        src={logo}
+        widths={[64, 128, 192]}
+        sizes="64px"
+        format="webp"
+        alt="ANP Movers"
+        class="h-14 w-auto object-contain max-[620px]:h-12"
+      />
     </a>
 
-    <nav class="header-nav justify-self-center max-[1180px]:hidden" aria-label="Primary navigation">
+    <nav
+      class="header-nav justify-self-center max-[1180px]:hidden"
+      aria-label="Primary navigation"
+    >
       <ul class="flex list-none items-center gap-[clamp(15px,2.2vw,34px)] p-0">
         {links.map(({ label, href }) => (
           <li>
@@ -57,7 +71,7 @@ const mobileLinks = links.flatMap((link) =>
           class="text-[#2e4141]"
           aria-hidden="true"
         />
-        <span class="max-[620px]:hidden">(+2) 5550 5550</span>
+        <span class="max-[620px]:hidden">+94 77 416 6098</span>
       </a>
       <!-- <a
         class="header-talk inline-flex min-h-[33px] items-center justify-center whitespace-nowrap rounded-full border border-[#e7e8e5] px-3.5 text-sm font-semibold transition-colors duration-200 hover:border-[#dbc694] hover:bg-[#f3efe6] focus-visible:outline-2 focus-visible:outline-[#d4ad61] focus-visible:outline-offset-[3px] max-[620px]:hidden"
@@ -66,7 +80,7 @@ const mobileLinks = links.flatMap((link) =>
         Let's Talk
       </a> -->
       <button
-        class="header-menu md:hidden group grid size-[40px] cursor-pointer place-items-center rounded-full border-0 bg-transparent transition-colors duration-200 hover:bg-[#f1f0eb] focus-visible:outline-2 focus-visible:outline-[#d4ad61] focus-visible:outline-offset-[3px]"
+        class="header-menu min-[1181px]:hidden group grid size-11 cursor-pointer place-items-center rounded-full border-0 bg-transparent transition-colors duration-200 hover:bg-[#f1f0eb] focus-visible:outline-2 focus-visible:outline-brand-ink focus-visible:outline-offset-[3px]"
         type="button"
         aria-label="Open navigation menu"
         aria-controls="site-side-panel"

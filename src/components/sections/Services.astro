@@ -39,16 +39,21 @@ import { services } from "../../data/services";
         <button
           type="button"
           class:list={[
-            "h-2.5 cursor-pointer rounded-full transition-[width,background-color] duration-300 focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4",
-            index === 0
-              ? "w-7 bg-brand-gold"
-              : "w-2.5 bg-white/35 hover:bg-white/65",
+            "group grid h-11 w-9 cursor-pointer place-items-center rounded-lg focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-2 [&[hidden]]:hidden",
           ]}
           data-service-dot
           data-service-index={index}
           aria-label={`Show ${service.title}`}
           aria-current={index === 0 ? "true" : undefined}
-        ></button>
+        >
+          <span
+            aria-hidden="true"
+            class:list={[
+              "h-2.5 rounded-full transition-[width,background-color] duration-300 group-hover:bg-white/65 motion-reduce:transition-none",
+              index === 0 ? "w-7 bg-brand-gold" : "w-2.5 bg-white/35",
+            ]}
+          ></span>
+        </button>
       ))}
     </div>
   </div>

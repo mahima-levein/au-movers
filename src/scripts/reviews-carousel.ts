@@ -81,6 +81,11 @@ export function initReviewsCarousel() {
         (stop, index, positions) =>
           index === 0 || stop - positions[index - 1] > 1,
       );
+    if (
+      stops.length > 2 &&
+      stops.at(-1)! - stops.at(-2)! < cards[0].clientWidth / 2
+    )
+      stops.splice(-2, 1);
     dots.forEach((dot, index) => {
       dot.hidden = index >= stops.length;
       dot.setAttribute(

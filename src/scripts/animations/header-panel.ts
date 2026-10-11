@@ -16,6 +16,12 @@ export function initHeaderPanel() {
   let lastFocus: HTMLElement | null = null;
   let previousOverflow = "";
   let pendingNavigation: { target: HTMLElement; hash: string } | null = null;
+  const background = [
+    ...document.querySelectorAll<HTMLElement>(
+      "#main-content, #site-footer, #floating-call",
+    ),
+  ];
+  let priorInert: boolean[] = [];
 
   const timeline = gsap.timeline({
     paused: true,
@@ -45,6 +51,9 @@ export function initHeaderPanel() {
   function finishClose() {
     root!.hidden = true;
     document.body.style.overflow = previousOverflow;
+    background.forEach((element, index) => {
+      element.inert = priorInert[index] ?? false;
+    });
     const navigation = pendingNavigation;
     pendingNavigation = null;
     if (navigation) {
@@ -80,6 +89,11 @@ export function initHeaderPanel() {
     lastFocus = document.activeElement as HTMLElement;
     root!.hidden = false;
     trigger!.setAttribute("aria-expanded", "true");
+    trigger!.setAttribute("aria-label", "Close navigation menu");
+    priorInert = background.map((element) => element.inert);
+    background.forEach((element) => {
+      element.inert = true;
+    });
     document.body.style.overflow = "hidden";
     if (reducedMotion.matches) {
       timeline.progress(1).pause();
@@ -93,6 +107,7 @@ export function initHeaderPanel() {
     if (!isOpen) return;
     isOpen = false;
     trigger!.setAttribute("aria-expanded", "false");
+    trigger!.setAttribute("aria-label", "Open navigation menu");
     if (reducedMotion.matches || timeline.time() === 0) {
       timeline.progress(0).pause();
       finishClose();
@@ -130,7 +145,11 @@ export function initHeaderPanel() {
     if (!isOpen) return;
     if (event.key === "Escape") close();
     if (event.key !== "Tab") return;
-    const focusable = [closeButton, ...links];
+    const focusable = [
+      ...surface.querySelectorAll<HTMLElement>(
+        "a[href], button:not([disabled])",
+      ),
+    ];
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
     if (event.shiftKey && document.activeElement === first) {
@@ -141,4 +160,9 @@ export function initHeaderPanel() {
       first.focus();
     }
   });
+  window
+    .matchMedia("(min-width: 1181px)")
+    .addEventListener("change", (event) => {
+      if (event.matches && isOpen) close();
+    });
 }
