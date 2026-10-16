@@ -12,6 +12,15 @@ export function initFaq() {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   let activeIndex = 0;
 
+  // Keep every answer readable in static HTML; collapse only after JS initializes.
+  panels.forEach((panel, index) => {
+    const active = index === 0;
+    triggers[index].setAttribute("aria-expanded", String(active));
+    panel.setAttribute("aria-hidden", String(!active));
+    panel.inert = !active;
+    gsap.set(panel, { height: active ? "auto" : 0, opacity: active ? 1 : 0 });
+  });
+
   function setActiveFaq(index: number) {
     if (index === activeIndex || !items[index]) return;
     const previous = activeIndex;

@@ -12,9 +12,14 @@ import PricingPlans from "../components/sections/PricingPlans.astro";
 import ReviewsSection from "../components/sections/ReviewsSection.astro";
 import RequestQuote from "../components/sections/RequestQuote.astro";
 import movingImage from "../assets/who-we-are.jpg";
+import { homeTitle, homeDescription, homeStructuredData } from "../data/seo";
 ---
 
-<BaseLayout>
+<BaseLayout
+  title={homeTitle}
+  description={homeDescription}
+  structuredData={homeStructuredData(Astro.site)}
+>
   <main
     id="landing-page"
     tabindex="-1"

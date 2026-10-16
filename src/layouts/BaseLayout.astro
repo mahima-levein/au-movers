@@ -11,6 +11,7 @@ interface Props {
   description?: string;
   landingExtras?: boolean;
   noindex?: boolean;
+  structuredData?: Record<string, unknown>;
 }
 
 const {
@@ -18,25 +19,50 @@ const {
   description = "Explore ANP Movers moving services, packing options and prices. Plan your move and request a quote.",
   landingExtras = true,
   noindex = false,
+  structuredData,
 } = Astro.props;
 const canonical = Astro.site
   ? new URL(Astro.url.pathname, Astro.site).href
   : undefined;
+const socialImage = Astro.site
+  ? new URL("/anp-logo.png", Astro.site).href
+  : undefined;
+const robots = noindex
+  ? "noindex, follow"
+  : "index, follow, max-image-preview:large";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en-AU">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta name="robots" content={robots} />
+    <meta name="theme-color" content="#142a51" />
     {canonical && <link rel="canonical" href={canonical} />}
     {canonical && <meta property="og:url" content={canonical} />}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ANP MOVERS" />
+    <meta property="og:locale" content="en_AU" />
+    {socialImage && <meta property="og:image" content={socialImage} />}
+    {socialImage && <meta property="og:image:alt" content="ANP MOVERS logo" />}
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {socialImage && <meta name="twitter:image" content={socialImage} />}
+    {Astro.site && <link rel="sitemap" href="/sitemap-index.xml" />}
+    {structuredData && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify(structuredData).replace(/</g, "\\u003c")}
+      ></script>
+    )}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" sizes="32x32" type="image/png" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

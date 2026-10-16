@@ -30,7 +30,7 @@ export const pricingPlans: PricingPlan[] = [
       { label: "Packing needs discussed before your move", available: true },
     ],
     ctaLabel: "Select Plan",
-    href: "tel:+94774166098",
+    href: "tel:+61451004235",
   },
   {
     id: "black-shrink-wrap-packing",
@@ -47,7 +47,7 @@ export const pricingPlans: PricingPlan[] = [
       { label: "Wrapping needs discussed before your move", available: true },
     ],
     ctaLabel: "Select Plan",
-    href: "tel:+94774166098",
+    href: "tel:+61451004235",
   },
   {
     id: "custom-plan",
@@ -63,6 +63,6 @@ export const pricingPlans: PricingPlan[] = [
       { label: "Discuss options to suit your budget", available: true },
     ],
     ctaLabel: "Discuss Your Move",
-    href: "tel:+94774166098",
+    href: "tel:+61451004235",
   },
 ];

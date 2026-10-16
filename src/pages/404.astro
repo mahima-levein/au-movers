@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Page Not Found | ANP MOVERS"
+  description="This page could not be found. Return to ANP Movers to explore moving services and packing plans."
+  landingExtras={false}
+  noindex
+>
+  <main
+    id="landing-page"
+    tabindex="-1"
+    class="bg-[#faf6f2] px-6 pt-44 pb-24 text-center text-brand-ink"
+  >
+    <p class="font-semibold text-brand-gold-text">404</p>
+    <h1 class="mt-4 text-4xl font-semibold">Page not found</h1>
+    <p class="mx-auto mt-5 max-w-lg leading-7">
+      The page may have moved or the link may be incorrect. Visit our homepage
+      to explore moving services and packing plans.
+    </p>
+    <a
+      href="/"
+      class="mt-8 inline-flex min-h-12 items-center rounded-full bg-brand-gold px-6 font-semibold focus-visible:outline-2 focus-visible:outline-brand-ink focus-visible:outline-offset-4"
+    >
+      Back to ANP Movers
+    </a>
+  </main>
+</BaseLayout>

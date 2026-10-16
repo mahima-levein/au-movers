@@ -21,12 +21,12 @@ export const faqs: FaqItem[] = [
     id: "large-items",
     question: "Can you move large items like pianos or safes?",
     answer:
-      "Large and heavy items can be handled when the correct equipment, access planning, and moving team are arranged in advance.",
+      "Contact ANP Movers before booking a piano, safe or other heavy item. Tell us the item size, stairs and access details so we can discuss whether suitable equipment and handling can be arranged.",
   },
   {
     id: "self-pack-or-movers",
-    question: "Should I pack my belongings myself or let the movers do it?",
+    question: "What details should I provide when discussing a moving quote?",
     answer:
-      "That depends on your time, budget, and the level of protection you want for fragile or valuable items.",
+      "Provide your pickup and destination, property type and size, preferred moving date, access details and packing needs. Call 0451 004 235 or use WhatsApp to discuss availability and pricing with ANP Movers.",
   },
 ];
